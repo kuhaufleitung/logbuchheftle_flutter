@@ -20,14 +20,14 @@ class LogListState extends State<LogList> {
             alignment: Alignment.centerLeft,
             duration: Duration.zero,
             padding: const EdgeInsets.all(14),
-            height: 50,
+            height: 100,
             //width: Checkbox.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                gradient: const LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    stops: [0.2, 2],
+                gradient: const RadialGradient(
+                    center: FractionalOffset(0.2, 3),
+                    radius: 4,
+                    stops: [0.6, 1],
                     colors: [Colors.indigo, Colors.blue])),
             child: const Text('Some flight entry',
                 style: TextStyle(color: Colors.white)),
