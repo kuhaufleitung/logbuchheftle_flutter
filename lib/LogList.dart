@@ -11,15 +11,13 @@ class LogListState extends State<LogList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 14.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 10.0),
       itemBuilder: (BuildContext context, int i) {
-        if (i.isOdd) {
-          return const Divider();
-        } else {
           return AnimatedContainer(
             alignment: Alignment.centerLeft,
             duration: Duration.zero,
             padding: const EdgeInsets.all(14),
+            margin: const EdgeInsets.fromLTRB(0, 0, 0, 6.0),
             height: 100,
             //width: Checkbox.width,
             decoration: BoxDecoration(
@@ -33,7 +31,6 @@ class LogListState extends State<LogList> {
                 style: TextStyle(color: Colors.white)),
           );
         }
-      },
     );
   }
 }
