@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/MainPages.dart';
-import 'LogList.dart';
+import 'FlightCreation.dart';
 import 'MainMenu.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key}) {
+    FlightCreation();
+  }
 
   // This widget is the root of your application.
   @override

@@ -11,8 +11,8 @@ class LogListState extends State<LogList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 10.0),
-      itemBuilder: (BuildContext context, int i) {
+        padding: const EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 10.0),
+        itemBuilder: (BuildContext context, int i) {
           return AnimatedContainer(
             alignment: Alignment.centerLeft,
             duration: Duration.zero,
@@ -30,7 +30,6 @@ class LogListState extends State<LogList> {
             child: const Text('Some flight entry',
                 style: TextStyle(color: Colors.white)),
           );
-        }
-    );
+        });
   }
 }
