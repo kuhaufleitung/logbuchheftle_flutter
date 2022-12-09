@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'SingleFlight.dart';
 
 class Flights {
-  static HashMap listOfFlights = HashMap<int, SingleFlight>();
+  static LinkedHashMap listOfFlights = LinkedHashMap<int, SingleFlight>();
   static const String _filePath = "assets/logbook.json";
   static bool _foundFile = false;
   static bool _alreadyBuilt = false;
@@ -32,12 +32,13 @@ class Flights {
   static void createSingleFlights(jsonContent) {
     Map<String, dynamic> map = jsonContent as Map<String, dynamic>;
     map.forEach((key, value) {
-      String pilotName = value['pilotname'];
+      String pilotName = value["pilotname"];
       String copilotName = "";
-      String model = value['planedesignation'];
+      String model = value["planedesignation"];
       String callsign = value['callsign'];
-      String departureLoc = value['departurelocation'];
-      String arrivalLoc = value['arrivallocation'];
+      String departureLoc = value["departurelocation"];
+      String arrivalLoc = value["arrivallocation"];
+      String date = value["dateofflight"];
       int flid = int.parse(value["flid"]);
       int flightDuration = int.parse(value["flighttime"]);
       Launchtype launchType = Launchtype.NOT_INIT;
@@ -48,7 +49,6 @@ class Flights {
       TimeOfDay arrivalTime = TimeOfDay(
           hour: int.parse(value["arrivaltime"].split(":")[0]),
           minute: int.parse(value["arrivaltime"].split(":")[1]));
-      DateTime? date = DateTime.tryParse(value["dateofflight"]);
 
       //Copilot could be pax or FI
       if (value["finame"] == null) {
@@ -61,7 +61,7 @@ class Flights {
       SingleFlight singleFlight = SingleFlight(
           pilotName,
           flid,
-          date!,
+          date,
           model,
           callsign,
           copilotName,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SingleFlight {
   String pilotName;
   int flid;
-  DateTime date;
+  String date;
   String model;
   String callsign;
   String copilotName;
