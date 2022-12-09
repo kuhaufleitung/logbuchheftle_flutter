@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/MainPages.dart';
-import 'Flights.dart';
 import 'MainMenu.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
-  Flights.populateFlightsList();
+  //Flights.populateFlightsList();
 }
 
 class MyApp extends StatelessWidget {

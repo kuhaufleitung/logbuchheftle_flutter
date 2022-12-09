@@ -10,10 +10,13 @@ class Flights {
   static HashMap listOfFlights = HashMap<int, SingleFlight>();
   static const String _filePath = "assets/logbook.json";
   static bool _foundFile = false;
+  static bool _alreadyBuilt = false;
 
-  static void populateFlightsList() async {
-    Map jsonFileContent = await readJsonFile();
-    createSingleFlights(jsonFileContent);
+  static Future<void> populateFlightsList() async {
+    if (!_alreadyBuilt) {
+      Map jsonFileContent = await readJsonFile();
+      createSingleFlights(jsonFileContent);
+    }
   }
 
   static Future<Map> readJsonFile() async {
@@ -70,5 +73,6 @@ class Flights {
           flightDuration);
       listOfFlights[flid] = singleFlight;
     });
+    _alreadyBuilt = true;
   }
 }

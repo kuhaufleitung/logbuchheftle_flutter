@@ -3,24 +3,25 @@ import 'package:logbuchheftle_flutter/Flights.dart';
 
 class LogList extends StatefulWidget {
   const LogList({super.key});
+
   @override
   LogListState createState() => LogListState();
 }
 
 class LogListState extends State<LogList> {
-  Widget body = CircularProgressIndicator();
-
   @override
   Widget build(BuildContext context) {
-    return body;
+    return FutureBuilder(
+      future: Flights.populateFlightsList(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return list();
+        } else {
+          return loading();
+        }
+      });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    setListState();
-  }
-//TODO: fix onLoadingComplete show List. now only works when switching buttons
   Widget list() {
     return ListView.builder(
         padding: const EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 10.0),
@@ -32,7 +33,6 @@ class LogListState extends State<LogList> {
             padding: const EdgeInsets.all(14),
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 6.0),
             height: 100,
-            //width: Checkbox.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
                 gradient: const RadialGradient(
@@ -51,11 +51,9 @@ class LogListState extends State<LogList> {
         alignment: Alignment.center, child: const CircularProgressIndicator());
   }
 
-  void setListState() {
-    if (Flights.listOfFlights.isNotEmpty) {
-      setState(() => body = list());
-    } else {
-      setState(() => body = loading());
-    }
+  Widget singleFlightAsListObject() {
+    //TODO: write entry to listobject
+    return Container();
   }
+
 }
