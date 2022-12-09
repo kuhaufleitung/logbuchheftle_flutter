@@ -3,7 +3,7 @@ import 'package:logbuchheftle_flutter/MainPages.dart';
 import 'FlightCreation.dart';
 import 'MainMenu.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }

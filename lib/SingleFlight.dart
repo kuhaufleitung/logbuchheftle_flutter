@@ -30,14 +30,31 @@ class SingleFlight {
   );
 }
 
-class Launchtype {
-  static const NOT_INIT = Launchtype._(0);
-  static const TMG = Launchtype._(1);
-  static const AEROTOW = Launchtype._(3);
-  static const WINCH = Launchtype._(5);
+enum Launchtype {
+  NOT_INIT(0),
+  TMG(1),
+  AEROTOW(3),
+  WINCH(5);
 
-  static get ids => [NOT_INIT, TMG, AEROTOW, WINCH];
-  final int id;
+  const Launchtype(this.id);
 
-  const Launchtype._(this.id);
+  final num id;
+}
+
+extension ParseFromString on Launchtype {
+  Launchtype parseToEnum(String fromJson) {
+    Launchtype result = Launchtype.NOT_INIT;
+    switch (int.parse(fromJson)) {
+      case 1:
+        result = Launchtype.TMG;
+        break;
+      case 3:
+        result = Launchtype.AEROTOW;
+        break;
+      case 5:
+        result = Launchtype.WINCH;
+        break;
+    }
+    return result;
+  }
 }
