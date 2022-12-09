@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/MainPages.dart';
-import 'FlightCreation.dart';
+import 'Flights.dart';
 import 'MainMenu.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
+  Flights.populateFlightsList();
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key}) {
-    FlightCreation();
-  }
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override

@@ -6,31 +6,27 @@ import 'package:flutter/services.dart';
 
 import 'SingleFlight.dart';
 
-class FlightCreation {
-  HashMap listOfFlights = HashMap<int, SingleFlight>();
-  String filePath = "assets/logbook.json";
-  bool foundFile = false;
+class Flights {
+  static HashMap listOfFlights = HashMap<int, SingleFlight>();
+  static const String _filePath = "assets/logbook.json";
+  static bool _foundFile = false;
 
-  FlightCreation() {
-    populateFlightsList();
-  }
-
-  void populateFlightsList() async {
+  static void populateFlightsList() async {
     Map jsonFileContent = await readJsonFile();
     createSingleFlights(jsonFileContent);
   }
 
-  Future<Map> readJsonFile() async {
-    String input = await rootBundle.loadString(filePath);
+  static Future<Map> readJsonFile() async {
+    String input = await rootBundle.loadString(_filePath);
     if (input.isNotEmpty) {
       var map = jsonDecode(input);
-      foundFile = true;
+      _foundFile = true;
       return map;
     }
     throw const FileSystemException();
   }
 
-  void createSingleFlights(jsonContent) {
+  static void createSingleFlights(jsonContent) {
     Map<String, dynamic> map = jsonContent as Map<String, dynamic>;
     map.forEach((key, value) {
       String pilotName = value['pilotname'];
@@ -43,8 +39,12 @@ class FlightCreation {
       int flightDuration = int.parse(value["flighttime"]);
       Launchtype launchType = Launchtype.NOT_INIT;
       launchType = launchType.parseToEnum(value["starttype"]);
-      TimeOfDay departureTime = TimeOfDay(hour:int.parse(value["departuretime"].split(":")[0]),minute: int.parse(value["departuretime"].split(":")[1]));
-      TimeOfDay arrivalTime = TimeOfDay(hour:int.parse(value["arrivaltime"].split(":")[0]),minute: int.parse(value["arrivaltime"].split(":")[1]));
+      TimeOfDay departureTime = TimeOfDay(
+          hour: int.parse(value["departuretime"].split(":")[0]),
+          minute: int.parse(value["departuretime"].split(":")[1]));
+      TimeOfDay arrivalTime = TimeOfDay(
+          hour: int.parse(value["arrivaltime"].split(":")[0]),
+          minute: int.parse(value["arrivaltime"].split(":")[1]));
       DateTime? date = DateTime.tryParse(value["dateofflight"]);
 
       //Copilot could be pax or FI
