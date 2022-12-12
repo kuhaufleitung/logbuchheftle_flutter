@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logbuchheftle_flutter/ContainerViewFlight.dart';
 import 'package:logbuchheftle_flutter/Flights.dart';
 
 import 'SingleFlight.dart';
@@ -41,7 +42,7 @@ class LogListState extends State<LogList> {
                 stops: [0.6, 1],
                 colors: [Colors.indigo, Colors.blue])),
         child: //TODO: create UI with multiple TextContainer
-            Text(element.date, style: const TextStyle(color: Colors.white)),
+            ContainerViewFlight(element)
       ));
     }
     return flightsInList;

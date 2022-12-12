@@ -57,4 +57,24 @@ extension ParseFromString on Launchtype {
     }
     return result;
   }
+
+  String parseToSingleLetter() {
+    String result = "";
+    switch (this) {
+      case Launchtype.NOT_INIT:
+        result = "--";
+        break;
+      case Launchtype.AEROTOW:
+        result = "F";
+        break;
+      case Launchtype.TMG:
+        result = "E";
+        break;
+      case Launchtype.WINCH:
+        result = "W";
+        break;
+    }
+    return result;
+
+  }
 }
