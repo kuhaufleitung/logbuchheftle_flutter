@@ -16,20 +16,6 @@ class ContainerViewFlight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return Row(children: [
-      Column(children: [
-        Text(
-          flight.date,
-          style: defaultBoldStyle,
-          textAlign: TextAlign.left,
-        ),
-        Text(flight.callsign, style: defaultStyle, textAlign: TextAlign.left),
-        Text("${flight.departureLoc} - ${flight.arrivalLoc}",
-            style: defaultStyle, textAlign: TextAlign.left)
-      ]),
-      Text(flight.model),
-      Text(flight.launchType.name)
-    ]);*/
     return Row(
       children: [
         Expanded(
