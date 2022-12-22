@@ -24,11 +24,6 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
       backgroundColor: Colors.white12,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -58,7 +53,7 @@ class _MainMenuState extends State<MainMenu> {
         selectedItemColor: Colors.white70,
         onTap: _onItemTapped,
       ),
-      body: MainPages(_index),
+      body: SafeArea(child: MainPages(_index)),
     );
   }
 }
