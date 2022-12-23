@@ -16,8 +16,7 @@ class Inserts {
       bool isFlightSameDay = oldFlight.getDay() == currentFlight.getDay();
 
       if (isFlightSameYear) {
-        if (isFlightSameMonth) {
-        } else {
+        if (!isFlightSameMonth) {
           whatToInclude.add(_monthWidget(currentFlight));
         }
         if (!isFlightSameDay) {
@@ -33,7 +32,11 @@ class Inserts {
   Widget _firstFlight(SingleFlight currentFlight) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [_yearWidget(currentFlight), _monthWidget(currentFlight)],
+      children: [
+        _yearWidget(currentFlight),
+        _monthWidget(currentFlight),
+        _daySpacer()
+      ],
     );
   }
 
@@ -52,8 +55,7 @@ class Inserts {
     String month = currentFlight.getMonth();
     return ShaderMask(
         shaderCallback: (bounds) => const LinearGradient(
-                colors: [Colors.grey, Colors.white],
-                tileMode: TileMode.mirror)
+                colors: [Colors.grey, Colors.white], tileMode: TileMode.mirror)
             .createShader(bounds),
         blendMode: BlendMode.srcIn,
         child: Text(month,
