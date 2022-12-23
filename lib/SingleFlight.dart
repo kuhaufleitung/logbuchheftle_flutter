@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SingleFlight {
   String pilotName;
@@ -29,9 +30,21 @@ class SingleFlight {
     this.flightDuration,
   );
 
-  DateTime getDate() {
-    return DateTime.parse(date);
+  String getYear() {
+    DateTime dateCasted = DateTime.parse(date);
+    return DateFormat("y").format(dateCasted);
   }
+
+  String getMonth() {
+    DateTime dateCasted = DateTime.parse(date);
+    return DateFormat("MMMM").format(dateCasted);
+  }
+
+  String getDay() {
+    DateTime dateCasted = DateTime.parse(date);
+    return DateFormat("d").format(dateCasted);
+  }
+
 }
 
 enum Launchtype {

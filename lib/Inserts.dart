@@ -8,45 +8,59 @@ class Inserts {
       whatToInclude.add(const Text("last"));
       return whatToInclude;
     } else if (oldFlight == null) {
-        whatToInclude.add(_firstFlight());
-        return whatToInclude;
+      whatToInclude.add(_firstFlight(currentFlight));
+      return whatToInclude;
     } else {
-      bool isFlightSameYear =
-          oldFlight.getDate().year == currentFlight.getDate().year;
-      bool isFlightSameMonth =
-          oldFlight.getDate().month == currentFlight.getDate().month;
-      bool isFlightSameDay =
-          oldFlight.getDate().day == currentFlight.getDate().day;
+      bool isFlightSameYear = oldFlight.getYear() == currentFlight.getYear();
+      bool isFlightSameMonth = oldFlight.getMonth() == currentFlight.getMonth();
+      bool isFlightSameDay = oldFlight.getDay() == currentFlight.getDay();
 
       if (isFlightSameYear) {
         if (isFlightSameMonth) {
-          if (!isFlightSameDay) {
-            whatToInclude.add(_daySpacer());
-          }
         } else {
-          whatToInclude.add(_monthWidget());
+          whatToInclude.add(_monthWidget(currentFlight));
+        }
+        if (!isFlightSameDay) {
+          whatToInclude.add(_daySpacer());
         }
       } else {
-        whatToInclude.add(_yearWidget());
+        whatToInclude.add(_yearWidget(currentFlight));
       }
       return whatToInclude;
     }
   }
 
-  Widget _firstFlight() {
-    return const Text("first");
+  Widget _firstFlight(SingleFlight currentFlight) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [_yearWidget(currentFlight), _monthWidget(currentFlight)],
+    );
   }
 
-  Widget _yearWidget() {
-    return const Text("year");
+  Widget _yearWidget(SingleFlight currentFlight) {
+    String year = currentFlight.getYear();
+    return ShaderMask(
+        shaderCallback: (bounds) => const LinearGradient(
+                colors: [Colors.indigo, Colors.blue], tileMode: TileMode.mirror)
+            .createShader(bounds),
+        blendMode: BlendMode.srcIn,
+        child: Text(year,
+            style: const TextStyle(fontSize: 80, fontWeight: FontWeight.bold)));
   }
 
-  Widget _monthWidget() {
-    return const Text("month");
+  Widget _monthWidget(SingleFlight currentFlight) {
+    String month = currentFlight.getMonth();
+    return ShaderMask(
+        shaderCallback: (bounds) => const LinearGradient(
+                colors: [Colors.grey, Colors.white],
+                tileMode: TileMode.mirror)
+            .createShader(bounds),
+        blendMode: BlendMode.srcIn,
+        child: Text(month,
+            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)));
   }
 
-  //TODO: eventually show full new date
   Widget _daySpacer() {
-    return const Text("data");
+    return const Divider(height: 10, thickness: 0);
   }
 }

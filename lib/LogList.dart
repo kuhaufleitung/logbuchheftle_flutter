@@ -20,7 +20,9 @@ class LogListState extends State<LogList> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return ListView(
-                physics: const BouncingScrollPhysics(), children: [...list()]);
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(10),
+                children: [...list()]);
           } else {
             return loading();
           }
@@ -36,13 +38,10 @@ class LogListState extends State<LogList> {
       //we want some "caption" text when a new year, new month happens.
       //also separating flights from different days with padding
       //TODO: check if date/month to next flight is different
-      /*
       List<Widget> inserts = inserter.generate(oldFlight, currentFlight);
       if (inserts.isNotEmpty) {
         flightsInList.addAll(inserter.generate(oldFlight, currentFlight));
       }
-
-       */
       flightsInList.add(AnimatedContainer(
           alignment: Alignment.centerLeft,
           duration: Duration.zero,
