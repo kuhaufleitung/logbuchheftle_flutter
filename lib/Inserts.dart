@@ -5,7 +5,6 @@ class Inserts {
   List<Widget> generate(SingleFlight? oldFlight, SingleFlight? currentFlight) {
     List<Widget> whatToInclude = <Widget>[];
     if (currentFlight == null) {
-      whatToInclude.add(const Text("last"));
       return whatToInclude;
     } else if (oldFlight == null) {
       whatToInclude.add(_firstFlight(currentFlight));
@@ -35,7 +34,7 @@ class Inserts {
       children: [
         _yearWidget(currentFlight),
         _monthWidget(currentFlight),
-        _daySpacer()
+        const Divider(height: 5, thickness: 0)
       ],
     );
   }
