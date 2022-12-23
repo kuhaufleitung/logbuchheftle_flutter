@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/ContainerViewFlight.dart';
 import 'package:logbuchheftle_flutter/Flights.dart';
+import 'package:logbuchheftle_flutter/Inserts.dart';
 
 import 'SingleFlight.dart';
 
@@ -18,8 +19,8 @@ class LogListState extends State<LogList> {
         future: Flights.populateFlightsList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return ListView(physics: const BouncingScrollPhysics(),
-            children: [...list()]);
+            return ListView(
+                physics: const BouncingScrollPhysics(), children: [...list()]);
           } else {
             return loading();
           }
@@ -27,25 +28,37 @@ class LogListState extends State<LogList> {
   }
 
   List<Widget> list() {
+    //need to keep track of previous flights to insert captions
+    SingleFlight? oldFlight;
     List<Widget> flightsInList = [];
-    for (SingleFlight element in Flights.listOfFlights.values) {
+    Inserts inserter = Inserts();
+    Flights.listOfFlights.forEach((currentflid, currentFlight) {
+      //we want some "caption" text when a new year, new month happens.
+      //also separating flights from different days with padding
+      //TODO: check if date/month to next flight is different
+      /*
+      List<Widget> inserts = inserter.generate(oldFlight, currentFlight);
+      if (inserts.isNotEmpty) {
+        flightsInList.addAll(inserter.generate(oldFlight, currentFlight));
+      }
+
+       */
       flightsInList.add(AnimatedContainer(
-        alignment: Alignment.centerLeft,
-        duration: Duration.zero,
-        padding: const EdgeInsets.all(14),
-        margin: const EdgeInsets.fromLTRB(0, 0, 0, 6.0),
-        height: 100,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            gradient: const RadialGradient(
-                center: FractionalOffset(0.2, 3),
-                radius: 4,
-                stops: [0.6, 1],
-                colors: [Colors.indigo, Colors.blue])),
-        child: //TODO: create UI with multiple TextContainer
-            ContainerViewFlight(element)
-      ));
-    }
+          alignment: Alignment.centerLeft,
+          duration: Duration.zero,
+          padding: const EdgeInsets.all(14),
+          margin: const EdgeInsets.fromLTRB(0, 0, 0, 6.0),
+          height: 100,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              gradient: const RadialGradient(
+                  center: FractionalOffset(0.2, 3),
+                  radius: 4,
+                  stops: [0.6, 1],
+                  colors: [Colors.indigo, Colors.blue])),
+          child: ContainerViewFlight(Flights.listOfFlights[currentflid])));
+      oldFlight = currentFlight;
+    });
     return flightsInList;
   }
 

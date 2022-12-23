@@ -28,6 +28,10 @@ class SingleFlight {
     this.arrivalTime,
     this.flightDuration,
   );
+
+  DateTime getDate() {
+    return DateTime.parse(date);
+  }
 }
 
 enum Launchtype {
