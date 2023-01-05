@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/SingleFlight.dart';
+import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
 
 class ContainerViewFlight extends StatelessWidget {
   SingleFlight flight;

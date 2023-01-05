@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/MainPages.dart';
-import 'MainMenu.dart';
+import 'package:logbuchheftle_flutter/Views/MainPages.dart';
+import 'Views/MainMenu.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(const LogApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LogApp extends StatelessWidget {
+  const LogApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/ContainerViewFlight.dart';
-import 'package:logbuchheftle_flutter/Flights.dart';
-import 'package:logbuchheftle_flutter/Inserts.dart';
+import 'package:logbuchheftle_flutter/Views/ContainerViewFlight.dart';
+import 'package:logbuchheftle_flutter/Logic/Flights.dart';
+import 'package:logbuchheftle_flutter/Views/Inserts.dart';
 
-import 'SingleFlight.dart';
+import '../Data/SingleFlight.dart';
 
 class LogList extends StatefulWidget {
   const LogList({super.key});

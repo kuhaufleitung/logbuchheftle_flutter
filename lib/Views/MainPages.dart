@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'LogList.dart';
+import 'SettingsView.dart';
 
 class MainPages extends StatelessWidget {
   int index = -1;
@@ -20,10 +21,7 @@ class MainPages extends StatelessWidget {
       'Index 1&2: Placeholder',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    )
+    SettingsView()
   ];
 
   @override

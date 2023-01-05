@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/MainPages.dart';
+import 'package:logbuchheftle_flutter/Views/MainPages.dart';
 
 class MainMenu extends StatefulWidget {
   final String title;
@@ -25,33 +25,31 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white12,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        destinations: const [
+          NavigationDestination(
             icon: Icon(Icons.airplane_ticket_outlined),
             label: 'Logbook',
-            backgroundColor: Colors.white10,
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.tab),
             label: 'Placeholder',
-            backgroundColor: Colors.white10,
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.tab),
             label: 'Placeholder',
-            backgroundColor: Colors.white10,
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.settings),
             label: 'Settings',
-            backgroundColor: Colors.white10,
           ),
         ],
-        currentIndex: _index,
-        unselectedItemColor: Colors.black45,
-        selectedItemColor: Colors.white70,
-        onTap: _onItemTapped,
+        selectedIndex: _index,
+        onDestinationSelected: _onItemTapped,
       ),
       body: SafeArea(child: MainPages(_index)),
     );

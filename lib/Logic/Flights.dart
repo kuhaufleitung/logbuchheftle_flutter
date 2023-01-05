@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'SingleFlight.dart';
+import '../Data/SingleFlight.dart';
 
 class Flights {
   static LinkedHashMap listOfFlights = LinkedHashMap<int, SingleFlight>();
