@@ -19,10 +19,12 @@ class LogListState extends State<LogList> {
         future: Flights.populateFlightsList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(10),
-                children: [...list()]);
+            return Scaffold(
+                backgroundColor: Colors.black,
+                body: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.all(10),
+                    children: [...list()]));
           } else {
             return loading();
           }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/Views/MainPages.dart';
-import 'Views/MainMenu.dart';
+import 'Views/MenuNavigator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,10 +31,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  MainPages controller = MainPages(0);
 
   @override
   Widget build(BuildContext context) {
-    return MainMenu(widget.title);
+    return MenuNavigator(widget.title);
   }
 }

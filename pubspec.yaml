@@ -41,6 +41,7 @@ dependencies:
   path_provider: any
   io: any
   connectivity_plus: any
+  persistent_bottom_nav_bar: any
 
 dev_dependencies:
   flutter_test:
