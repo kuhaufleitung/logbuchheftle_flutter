@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/Views/ContainerViewFlight.dart';
+import 'package:logbuchheftle_flutter/Views/SingleFlightSummaryView.dart';
 import 'package:logbuchheftle_flutter/Logic/Flights.dart';
 import 'package:logbuchheftle_flutter/Views/Inserts.dart';
 
@@ -57,7 +57,7 @@ class LogListState extends State<LogList> {
                   radius: 4,
                   stops: [0.6, 1],
                   colors: [Colors.indigo, Colors.blue])),
-          child: ContainerViewFlight(Flights.listOfFlights[currentflid])));
+          child: SingleFlightSummaryView(Flights.listOfFlights[currentflid])));
       oldFlight = currentFlight;
     });
     return flightsInList;

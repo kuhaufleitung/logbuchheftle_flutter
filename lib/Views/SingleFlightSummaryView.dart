@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
 import 'package:logbuchheftle_flutter/Views/FlightDetailsView.dart';
 
-class ContainerViewFlight extends StatelessWidget {
+class SingleFlightSummaryView extends StatelessWidget {
   SingleFlight flight;
 
-  ContainerViewFlight(this.flight, {super.key});
+
+  SingleFlightSummaryView(this.flight, {super.key});
 
   TextStyle defaultBoldStyle = const TextStyle(
       color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14);

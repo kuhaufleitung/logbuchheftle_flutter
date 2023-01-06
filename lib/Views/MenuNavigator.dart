@@ -21,30 +21,32 @@ class _MenuNavigatorState extends State<MenuNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        bottom: false,
-        child: PersistentTabView(
-          bottomScreenMargin: 0,
-          context,
-          controller: _controller,
-          screens: const [LogList(), SettingsView()],
-          items: _navBarItems(),
-          confineInSafeArea: false,
-          backgroundColor: Colors.black.withOpacity(0.4),
-          handleAndroidBackButtonPress: true,
-          resizeToAvoidBottomInset: true,
-          hideNavigationBarWhenKeyboardShows: true,
-          decoration: NavBarDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          screenTransitionAnimation: const ScreenTransitionAnimation(
-            // Screen transition animation on change of selected tab.
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 200),
-          ),
-          navBarStyle: NavBarStyle.style1,
-        ));
+    return Scaffold(
+        backgroundColor: Colors.black,
+        body: SafeArea(
+            bottom: false,
+            child: PersistentTabView(
+              bottomScreenMargin: 0,
+              context,
+              controller: _controller,
+              screens: const [LogList(), SettingsView()],
+              items: _navBarItems(),
+              confineInSafeArea: false,
+              backgroundColor: Colors.black.withOpacity(0.4),
+              handleAndroidBackButtonPress: true,
+              resizeToAvoidBottomInset: true,
+              hideNavigationBarWhenKeyboardShows: true,
+              decoration: NavBarDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              screenTransitionAnimation: const ScreenTransitionAnimation(
+                // Screen transition animation on change of selected tab.
+                animateTabTransition: true,
+                curve: Curves.ease,
+                duration: Duration(milliseconds: 200),
+              ),
+              navBarStyle: NavBarStyle.style1,
+            )));
   }
 
   List<PersistentBottomNavBarItem> _navBarItems() {
