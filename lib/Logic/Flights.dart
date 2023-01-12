@@ -9,7 +9,6 @@ import '../Data/SingleFlight.dart';
 class Flights {
   static LinkedHashMap listOfFlights = LinkedHashMap<int, SingleFlight>();
   static const String _filePath = "assets/logbook.json";
-  static bool _foundFile = false;
   static bool _alreadyBuilt = false;
 
   static Future<void> populateFlightsList() async {
@@ -23,7 +22,6 @@ class Flights {
     String input = await rootBundle.loadString(_filePath);
     if (input.isNotEmpty) {
       var map = jsonDecode(input);
-      _foundFile = true;
       return map;
     }
     throw const FileSystemException();

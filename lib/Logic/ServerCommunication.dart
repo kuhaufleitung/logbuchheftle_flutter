@@ -1,7 +1,33 @@
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
+
 //TODO: ResponseFromServer -> get as string -> save to file (eventually backup)
 //TODO: invoke update() FlightCreation
 class ServerCommunication {
-  String? jsonResponse;
+  final FileCredentials _fileCredentials;
 
-  ServerCommunication() {}
+  ServerCommunication(this._fileCredentials);
+
+  Future<http.Response> sendLoginRequest() async {
+    Uri url = Uri.https(_fileCredentials.getServerAddress, '/auth');
+    String userColonPass =
+        "${_fileCredentials.getUsername}:${_fileCredentials.getPassword}";
+    Codec<String, String> strToBase64 = utf8.fuse(base64);
+    String encodedAuth = strToBase64.encode(userColonPass);
+    http.Response response = await http
+        .post(url, headers: {HttpHeaders.authorizationHeader: encodedAuth});
+    return response;
+  }
+
+  Future<http.Response> getLogbookUpdate() async {
+    Uri url = Uri.https(_fileCredentials.getServerAddress, '/rest/logbook');
+    http.Response response = await http.get(url, headers: {
+      HttpHeaders.authorizationHeader:
+          "Bearer ${_fileCredentials.getJwtBearerToken}"
+    });
+    return response;
+  }
 }

@@ -4,8 +4,9 @@ class FileCredentials {
   final String _fileName = 'cred.json';
   File? _handleToFile;
   String? contentFromFile;
+  String _jwtBearerToken = "";
 
-  String _serverIp = "";
+  String _serverAddress = "";
   String _port = "";
   String _username = "";
   String _password = "";
@@ -14,16 +15,12 @@ class FileCredentials {
     return _fileName;
   }
 
-  set setHandleToFile(File newHandle) {
+  void setHandleToFile(File newHandle) {
     _handleToFile = newHandle;
   }
 
-  File? get getHandleToFile {
-    return _handleToFile;
-  }
-
-  void setServerIp(String serverIp) {
-    _serverIp = serverIp;
+  void setServerAddress(String serverIp) {
+    _serverAddress = serverIp;
   }
 
   void setPort(String port) {
@@ -38,8 +35,16 @@ class FileCredentials {
     _password = password;
   }
 
-  String get getServerIp {
-    return _serverIp;
+  void setJwtBearerToken(String newToken) {
+    _jwtBearerToken = newToken;
+  }
+
+  File? get getHandleToFile {
+    return _handleToFile;
+  }
+
+  String get getServerAddress {
+    return _serverAddress;
   }
 
   String get getPort {
@@ -52,5 +57,9 @@ class FileCredentials {
 
   String get getPassword {
     return _password;
+  }
+
+  String get getJwtBearerToken {
+    return _jwtBearerToken;
   }
 }
