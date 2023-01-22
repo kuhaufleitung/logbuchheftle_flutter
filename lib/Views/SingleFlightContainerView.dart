@@ -25,13 +25,19 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
   double _targetWidth = 200;
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     _detailsTextView = FlightDetailsTextView(selectedFlight: widget._flight);
     _summaryTextView = FlightSummaryTextView(selectedFlight: widget._flight);
     _currentTextWidgetInfo = _summaryTextView;
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400));
+        vsync: this, duration: const Duration(milliseconds: 300));
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
@@ -41,9 +47,9 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
         });
       } else if (status == AnimationStatus.dismissed) {
         setState(() {
+          _currentTextWidgetInfo = _summaryTextView;
           _targetHeight = 100;
           _targetWidth = MediaQuery.of(context).size.width - 6.0;
-          _currentTextWidgetInfo = _summaryTextView;
         });
       }
     });
@@ -51,20 +57,23 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
 
   @override
   Widget build(BuildContext context) {
-    if (_animationController.isDismissed) {
+    if (_animationController.status == AnimationStatus.dismissed) {
       _animation = Tween<double>(
               begin: _targetHeight,
               end: MediaQuery.of(context).size.height - 200)
           .animate(CurvedAnimation(
-              parent: _animationController, curve: Curves.easeInSine));
-    } else {
+              parent: _animationController,
+              curve: Curves.easeInSine,
+              reverseCurve: Curves.easeInSine));
+    } else if (_animationController.status == AnimationStatus.reverse) {
       _animation = Tween<double>(
               begin: MediaQuery.of(context).size.height - 200,
               end: _targetHeight)
           .animate(CurvedAnimation(
-              parent: _animationController, curve: Curves.easeInSine));
+              parent: _animationController,
+              curve: Curves.easeInSine,
+              reverseCurve: Curves.easeInSine));
     }
-
     _animationWidth = Tween<double>(
             begin: _targetWidth, end: MediaQuery.of(context).size.width)
         .animate(CurvedAnimation(
@@ -98,7 +107,12 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
                           radius: 4,
                           stops: [0.6, 1],
                           colors: [Colors.indigo, Colors.blue])),
-                  child: _currentTextWidgetInfo);
+                  child: SizeTransition(
+                      sizeFactor: _animation,
+                      child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 300),
+                          opacity: _animationController.isAnimating ? 0 : 1,
+                          child: _animationController.isAnimating ? Container() : _currentTextWidgetInfo)));
             }));
   }
 }
