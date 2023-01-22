@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/Views/SingleFlightSummaryView.dart';
+import 'package:logbuchheftle_flutter/Views/SingleFlightContainerView.dart';
 import 'package:logbuchheftle_flutter/Logic/Flights.dart';
 import 'package:logbuchheftle_flutter/Views/Inserts.dart';
 
@@ -44,20 +44,7 @@ class LogListState extends State<LogList> {
       if (inserts.isNotEmpty) {
         flightsInList.addAll(inserter.generate(oldFlight, currentFlight));
       }
-      flightsInList.add(AnimatedContainer(
-          alignment: Alignment.centerLeft,
-          duration: Duration.zero,
-          padding: const EdgeInsets.all(14),
-          margin: const EdgeInsets.fromLTRB(0, 0, 0, 6.0),
-          height: 100,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              gradient: const RadialGradient(
-                  center: FractionalOffset(0.2, 3),
-                  radius: 4,
-                  stops: [0.6, 1],
-                  colors: [Colors.indigo, Colors.blue])),
-          child: SingleFlightSummaryView(Flights.listOfFlights[currentflid])));
+      flightsInList.add(SingleFlightContainerView(Flights.listOfFlights[currentflid]));
       oldFlight = currentFlight;
     });
     return flightsInList;

@@ -3,11 +3,11 @@ import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
 
 import '../Logic/Flights.dart';
 
-class FlightDetailsView extends StatelessWidget {
+class FlightDetailsTextView extends StatelessWidget {
   SingleFlight selectedFlight;
   String consecutiveFlightNumber = "-1";
 
-  FlightDetailsView({super.key, required this.selectedFlight}) {
+  FlightDetailsTextView({super.key, required this.selectedFlight}) {
     //hacky way to evaluate what consecutive flight number this is. As listOfFlights is saved as a HashMap, we need to cast -> list
     consecutiveFlightNumber =
         '${Flights.listOfFlights.length - Set.from(Flights.listOfFlights.keys).toList().indexOf(selectedFlight.flid)}';
@@ -15,24 +15,7 @@ class FlightDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Column(children: [
-      Row(children: [
-        //BackButton (cant be extracted to own class, losing context somehow)
-        GestureDetector(
-            onTap: () => Navigator.pop(context),
-            behavior: HitTestBehavior.translucent,
-            child: Container(
-                color: Colors.transparent,
-                height: 80.0,
-                width: 40.0,
-                child: const Icon(
-                  Icons.arrow_back_ios_rounded,
-                  color: Colors.white,
-                )))
-      ]),
-      _listOfDetails(context)
-    ]));
+    return SafeArea(child: Column(children: [_listOfDetails(context)]));
   }
 
   Widget _listOfDetails(context) {
