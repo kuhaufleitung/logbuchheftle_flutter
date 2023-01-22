@@ -91,11 +91,11 @@ class FlightDetailsTextView extends StatelessWidget {
   }
 
   TextStyle defaultStyle() {
-    return const TextStyle(color: Colors.white, fontSize: 30.0);
+    return const TextStyle(color: Colors.white, fontSize: 20.0);
   }
 
   TextStyle fatStyle() {
     return const TextStyle(
-        color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold);
+        color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold);
   }
 }

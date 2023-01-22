@@ -41,7 +41,7 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          _targetHeight = MediaQuery.of(context).size.height - 200;
+          _targetHeight = MediaQuery.of(context).size.height - 800;
           _targetWidth = MediaQuery.of(context).size.width;
           _currentTextWidgetInfo = _detailsTextView;
         });
@@ -60,14 +60,14 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
     if (_animationController.status == AnimationStatus.dismissed) {
       _animation = Tween<double>(
               begin: _targetHeight,
-              end: MediaQuery.of(context).size.height - 200)
+              end: MediaQuery.of(context).size.height - 800)
           .animate(CurvedAnimation(
               parent: _animationController,
               curve: Curves.easeInSine,
               reverseCurve: Curves.easeInSine));
     } else if (_animationController.status == AnimationStatus.reverse) {
       _animation = Tween<double>(
-              begin: MediaQuery.of(context).size.height - 200,
+              begin: MediaQuery.of(context).size.height - 800,
               end: _targetHeight)
           .animate(CurvedAnimation(
               parent: _animationController,
