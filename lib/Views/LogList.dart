@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
+import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
 import 'package:logbuchheftle_flutter/Views/SingleFlightContainerView.dart';
 import 'package:logbuchheftle_flutter/Logic/Flights.dart';
 import 'package:logbuchheftle_flutter/Views/Inserts.dart';
@@ -6,13 +8,25 @@ import 'package:logbuchheftle_flutter/Views/Inserts.dart';
 import '../Data/SingleFlight.dart';
 
 class LogList extends StatefulWidget {
-  const LogList({super.key});
+  final FileCredentials _fileCredentials;
+  const LogList(this._fileCredentials, {super.key});
 
   @override
   LogListState createState() => LogListState();
 }
 
 class LogListState extends State<LogList> {
+
+
+  late final LogbookUpdate _logbookInst;
+  LogListState();
+  @override
+  void initState() {
+    super.initState();
+    _logbookInst = LogbookUpdate(widget._fileCredentials);
+    //_logbookInst.login();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -44,9 +58,12 @@ class LogListState extends State<LogList> {
       if (inserts.isNotEmpty) {
         flightsInList.addAll(inserter.generate(oldFlight, currentFlight));
       }
-      flightsInList.add(SingleFlightContainerView(Flights.listOfFlights[currentflid]));
+      flightsInList
+          .add(SingleFlightContainerView(Flights.listOfFlights[currentflid]));
       oldFlight = currentFlight;
     });
+    //empty container at the end, so bottom bar doesnt cover last element
+    flightsInList.add(Container(height: 100,decoration: BoxDecoration(color: Colors.transparent),));
     return flightsInList;
   }
 

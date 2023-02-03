@@ -1,29 +1,25 @@
-import 'package:logbuchheftle_flutter/Logic/FileCredentialsAcquisition.dart';
 import 'package:logbuchheftle_flutter/Logic/ServerCommunication.dart';
 import 'package:http/http.dart' as http;
 
 import '../Data/FileCredentials.dart';
 
 class LogbookUpdate {
-  late FileCredentials _fileCreds;
-  late FileCredentialsAcquisition _credsAcq;
+  final FileCredentials _fileCreds;
   late ServerCommunication _serverComms;
   late http.Response _lastResponse;
 
-  LogbookUpdate() {
-    _fileCreds = FileCredentials();
-    _credsAcq = FileCredentialsAcquisition(_fileCreds);
+  LogbookUpdate(this._fileCreds) {
     _serverComms = ServerCommunication(_fileCreds);
 
-    _credsAcq.readData();
+    //_credsAcq.readData();
     //dummy init
     //List<int> dummy = List.generate(0, (int index) => index + 0, growable: true);
     //_lastResponse = http.Response.bytes(dummy, -1);
   }
 
-  void login() {
-    Future<http.Response> responseCode = _serverComms.sendLoginRequest();
-    responseCode.then((value) => {setLastResponse(value)});
+  void login() async {
+    http.Response responseCode = await _serverComms.sendLoginRequest();
+    setLastResponse(responseCode);
     if (_lastResponse.statusCode == 200) {
       _fileCreds.setJwtBearerToken(_lastResponse.body);
       //TODO: log

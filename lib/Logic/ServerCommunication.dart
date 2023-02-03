@@ -12,13 +12,17 @@ class ServerCommunication {
   ServerCommunication(this._fileCredentials);
 
   Future<http.Response> sendLoginRequest() async {
-    Uri url = Uri.https(_fileCredentials.getServerAddress, '/auth');
+    //TODO: use HTTPS
+    Uri url = Uri.http('${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}', '/auth');
     String userColonPass =
         "${_fileCredentials.getUsername}:${_fileCredentials.getPassword}";
     Codec<String, String> strToBase64 = utf8.fuse(base64);
-    String encodedAuth = strToBase64.encode(userColonPass);
-    http.Response response = await http
-        .post(url, headers: {HttpHeaders.authorizationHeader: encodedAuth});
+    String encodedAuth = "Basic ${strToBase64.encode(userColonPass)}";
+    http.Response response = http.Response("", 418);
+    await http.post(url, headers: {
+      HttpHeaders.authorizationHeader: encodedAuth
+      //TODO on error log
+    }).then((value) => {response = value}, onError: (value) => response = value);
     return response;
   }
 

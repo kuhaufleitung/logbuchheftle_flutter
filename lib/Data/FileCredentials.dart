@@ -1,9 +1,6 @@
 import 'dart:io';
 
 class FileCredentials {
-  final String _fileName = 'cred.json';
-  File? _handleToFile;
-  String? contentFromFile;
   String _jwtBearerToken = "";
 
   String _serverAddress = "";
@@ -11,13 +8,6 @@ class FileCredentials {
   String _username = "";
   String _password = "";
 
-  String get getFileName {
-    return _fileName;
-  }
-
-  void setHandleToFile(File newHandle) {
-    _handleToFile = newHandle;
-  }
 
   void setServerAddress(String serverIp) {
     _serverAddress = serverIp;
@@ -37,10 +27,6 @@ class FileCredentials {
 
   void setJwtBearerToken(String newToken) {
     _jwtBearerToken = newToken;
-  }
-
-  File? get getHandleToFile {
-    return _handleToFile;
   }
 
   String get getServerAddress {
