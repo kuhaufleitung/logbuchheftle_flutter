@@ -33,57 +33,106 @@ class _SettingsViewState extends State<SettingsView> {
         TextEditingController(text: widget._fileCredentials.getPassword);
   }
 
+  //Focus widget is needed as we can switch to different form where onChanged isn't called on the old one
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+        minimum: const EdgeInsets.all(4.0),
         child: Column(
-      children: [
-        TextField(
-            controller: _addressController,
-            onSubmitted: (String value) => {
-                  _addressController.value = TextEditingValue(text: value),
-                  widget._fileCredentials.setServerAddress(value),
-                  widget._fileCredentialsAcquisition.writeDataToStorage("ip")
+          children: [
+            //IP field
+            Focus(
+                onFocusChange: (isFocused) {
+                  if (!isFocused) {
+                    widget._fileCredentials
+                        .setServerAddress(_addressController.value.text);
+                    widget._fileCredentialsAcquisition.writeDataToStorage("ip");
+                  }
                 },
-            autocorrect: false,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Backend Server IP-Address")),
-        TextField(
-            onSubmitted: (String value) => {
-                  _portController.value = TextEditingValue(text: value),
-                  widget._fileCredentials.setPort(value),
-                  widget._fileCredentialsAcquisition.writeDataToStorage("port")
+                child: TextField(
+                    controller: _addressController,
+                    onChanged: (String value) {
+                      _addressController.value = TextEditingValue(
+                          text: value,
+                          selection: TextSelection.fromPosition(TextPosition(
+                              offset: _addressController.text.length)));
+                    },
+                    keyboardType: TextInputType.number,
+                    autocorrect: false,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Backend Server IP-Address"))),
+            //Port field
+            Focus(
+                onFocusChange: (isFocused) {
+                  if (!isFocused) {
+                    widget._fileCredentials.setPort(_portController.value.text);
+                    widget._fileCredentialsAcquisition
+                        .writeDataToStorage("port");
+                  }
                 },
-            autocorrect: false,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), hintText: "Port")),
-        TextField(
-            onSubmitted: (String value) => {
-                  _usernameController.value = TextEditingValue(text: value),
-                  widget._fileCredentials.setUsername(value),
-                  widget._fileCredentialsAcquisition
-                      .writeDataToStorage("username")
+                child: TextField(
+                    controller: _portController,
+                    onChanged: (String value) {
+                      _portController.value = TextEditingValue(
+                          text: value,
+                          selection: TextSelection.fromPosition(TextPosition(
+                              offset: _portController.text.length)));
+                    },
+                    keyboardType: TextInputType.number,
+                    autocorrect: false,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), hintText: "Port"))),
+            //Username field
+            Focus(
+                onFocusChange: (isFocused) {
+                  if (!isFocused) {
+                    widget._fileCredentials
+                        .setUsername(_usernameController.value.text);
+                    widget._fileCredentialsAcquisition
+                        .writeDataToStorage("username");
+                  }
                 },
-            autocorrect: false,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), hintText: "Server Username")),
-        TextField(
-            onSubmitted: (String value) => {
-                  _passwordController.value = TextEditingValue(text: value),
-                  widget._fileCredentials.setPassword(value),
-                  widget._fileCredentialsAcquisition
-                      .writeDataToStorage("password")
+                child: TextField(
+                    controller: _usernameController,
+                    onChanged: (String value) {
+                      _usernameController.value = TextEditingValue(
+                          text: value,
+                          selection: TextSelection.fromPosition(TextPosition(
+                              offset: _usernameController.text.length)));
+                    },
+                    autocorrect: false,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Server Username"))),
+            //Password field
+            Focus(
+                onFocusChange: (isFocused) {
+                  if (!isFocused) {
+                    widget._fileCredentials
+                        .setPassword(_passwordController.value.text);
+                    widget._fileCredentialsAcquisition
+                        .writeDataToStorage("password");
+                  }
                 },
-            autocorrect: false,
-            obscureText: true,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), hintText: "Server Password")),
-        ElevatedButton(
-            onPressed: () =>
-                widget._fileCredentialsAcquisition.readDataFromStorage(),
-            child: const Text("Read Credentials from Storage..."))
-      ],
-    ));
+                child: TextField(
+                    controller: _passwordController,
+                    onChanged: (String value) {
+                      _passwordController.value = TextEditingValue(
+                          text: value,
+                          selection: TextSelection.fromPosition(TextPosition(
+                              offset: _passwordController.text.length)));
+                    },
+                    autocorrect: false,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Server Password"))),
+            ElevatedButton(
+                onPressed: () =>
+                    widget._fileCredentialsAcquisition.readDataFromStorage(),
+                child: const Text("Read Credentials from Storage..."))
+          ],
+        ));
   }
 }
