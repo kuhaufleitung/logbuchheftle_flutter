@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:logbuchheftle_flutter/Logic/CredentialsType.dart';
 
 import '../Data/FileCredentials.dart';
 
@@ -27,28 +28,28 @@ class FileCredentialsAcquisition {
     }
   }
 
-  void writeDataToStorage(String action) async {
+  void writeDataToStorage(CredentialsType action) async {
     try {
       switch (action) {
-        case "ip":
+        case CredentialsType.ADDRESS:
           await _secureStorage.write(
               key: 'serverIp',
               aOptions: _getAndroidOptions(),
               value: _fileCredentials.getServerAddress);
           break;
-        case "port":
+        case CredentialsType.PORT:
           await _secureStorage.write(
               key: 'port',
               aOptions: _getAndroidOptions(),
               value: _fileCredentials.getPort);
           break;
-        case "username":
+        case CredentialsType.USERNAME:
           await _secureStorage.write(
               key: 'username',
               aOptions: _getAndroidOptions(),
               value: _fileCredentials.getUsername);
           break;
-        case "password":
+        case CredentialsType.PASSWORD:
           await _secureStorage.write(
               key: 'password',
               aOptions: _getAndroidOptions(),
@@ -63,4 +64,8 @@ class FileCredentialsAcquisition {
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
         encryptedSharedPreferences: true,
       );
+  
+  void writeJWTToStorage() {
+    
+  }
 }
