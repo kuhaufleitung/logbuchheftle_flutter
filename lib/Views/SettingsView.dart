@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/CredentialsInputView.dart';
 import 'package:logbuchheftle_flutter/Data/CredentialsType.dart';
+import 'package:logbuchheftle_flutter/Views/LoginStatusView.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -52,6 +53,7 @@ class _SettingsViewState extends State<SettingsView> {
             const Text("Passwort:"),
             CredentialsInputView(CredentialsType.PASSWORD, _passwordController,
                 widget._fileCredentials),
+            LoginStatusView(widget._fileCredentials)
           ],
         ));
   }

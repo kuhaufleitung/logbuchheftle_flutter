@@ -4,6 +4,7 @@ import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
 import 'package:logbuchheftle_flutter/Views/SingleFlightContainerView.dart';
 import 'package:logbuchheftle_flutter/Logic/Flights.dart';
 import 'package:logbuchheftle_flutter/Views/Inserts.dart';
+import 'package:logbuchheftle_flutter/Views/StatusViews/LoadingView.dart';
 
 import '../Data/SingleFlight.dart';
 
@@ -40,7 +41,7 @@ class LogListState extends State<LogList> {
                     padding: const EdgeInsets.all(10),
                     children: [...list()]));
           } else {
-            return loading();
+            return const LoadingView();
           }
         });
   }
@@ -65,10 +66,5 @@ class LogListState extends State<LogList> {
     //empty container at the end, so bottom bar doesnt cover last element
     flightsInList.add(Container(height: 100,decoration: BoxDecoration(color: Colors.transparent),));
     return flightsInList;
-  }
-
-  Widget loading() {
-    return Container(
-        alignment: Alignment.center, child: const CircularProgressIndicator());
   }
 }

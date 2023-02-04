@@ -4,8 +4,8 @@ import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
 import '../Logic/Flights.dart';
 
 class FlightDetailsTextView extends StatelessWidget {
-  SingleFlight selectedFlight;
-  String consecutiveFlightNumber = "-1";
+  final SingleFlight selectedFlight;
+  late final String consecutiveFlightNumber;
 
   FlightDetailsTextView({super.key, required this.selectedFlight}) {
     //hacky way to evaluate what consecutive flight number this is. As listOfFlights is saved as a HashMap, we need to cast -> list
