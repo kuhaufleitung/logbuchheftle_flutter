@@ -10,8 +10,7 @@ class CredentialsInputView extends StatefulWidget {
   late final FileCredentialsAcquisition _fileCredentialsAcquisition;
   final CredentialsType _credType;
 
-  ///@params: controllerInst, fileCredentials, textHint, KeyboardType
-  ///Focus widget is needed as we can switch to different form where onChanged isn't called on the old one
+  //Focus widget is needed as we can switch to different form where onChanged isn't called on the old one
   CredentialsInputView(this._credType, this._controller, this._fileCredentials,
       {super.key}) {
     _fileCredentialsAcquisition = FileCredentialsAcquisition(_fileCredentials);

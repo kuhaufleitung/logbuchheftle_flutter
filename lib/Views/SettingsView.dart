@@ -37,13 +37,19 @@ class _SettingsViewState extends State<SettingsView> {
         minimum: const EdgeInsets.all(4.0),
         child: Column(
           children: [
-            //Address field
+            const Text("URL des Servers:"),
             CredentialsInputView(CredentialsType.ADDRESS, _addressController,
                 widget._fileCredentials),
+            Container(height: 20.0),
+            const Text("Port des Servers:"),
             CredentialsInputView(
                 CredentialsType.PORT, _portController, widget._fileCredentials),
+            Container(height: 20.0),
+            const Text("Login:"),
             CredentialsInputView(CredentialsType.USERNAME, _usernameController,
                 widget._fileCredentials),
+            Container(height: 20.0),
+            const Text("Passwort:"),
             CredentialsInputView(CredentialsType.PASSWORD, _passwordController,
                 widget._fileCredentials),
           ],
