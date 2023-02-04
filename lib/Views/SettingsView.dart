@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/CredentialsInputView.dart';
-import 'package:logbuchheftle_flutter/Logic/CredentialsType.dart';
+import 'package:logbuchheftle_flutter/Data/CredentialsType.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -38,18 +38,14 @@ class _SettingsViewState extends State<SettingsView> {
         child: Column(
           children: [
             //Address field
+            CredentialsInputView(CredentialsType.ADDRESS, _addressController,
+                widget._fileCredentials),
             CredentialsInputView(
-                CredentialsType.ADDRESS,
-                _addressController,
-                widget._fileCredentials,
-                "meineurldesservers.de",
-                TextInputType.number),
-            CredentialsInputView(CredentialsType.PORT, _portController,
-                widget._fileCredentials, "8000", TextInputType.number),
+                CredentialsType.PORT, _portController, widget._fileCredentials),
             CredentialsInputView(CredentialsType.USERNAME, _usernameController,
-                widget._fileCredentials, "username123", TextInputType.text),
+                widget._fileCredentials),
             CredentialsInputView(CredentialsType.PASSWORD, _passwordController,
-                widget._fileCredentials, "passwort", TextInputType.text),
+                widget._fileCredentials),
           ],
         ));
   }

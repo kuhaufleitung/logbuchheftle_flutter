@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:logbuchheftle_flutter/Logic/CredentialsType.dart';
+import 'package:logbuchheftle_flutter/Data/CredentialsType.dart';
 
 import '../Data/FileCredentials.dart';
 

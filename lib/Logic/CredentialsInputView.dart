@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/FileCredentialsAcquisition.dart';
 
-import 'CredentialsType.dart';
+import '../Data/CredentialsType.dart';
 
 class CredentialsInputView extends StatefulWidget {
   final TextEditingController _controller;
   final FileCredentials _fileCredentials;
   late final FileCredentialsAcquisition _fileCredentialsAcquisition;
-  final String _textHint;
-  final TextInputType _kbType;
   final CredentialsType _credType;
 
   ///@params: controllerInst, fileCredentials, textHint, KeyboardType
   ///Focus widget is needed as we can switch to different form where onChanged isn't called on the old one
   CredentialsInputView(this._credType, this._controller, this._fileCredentials,
-      this._textHint, this._kbType,
       {super.key}) {
     _fileCredentialsAcquisition = FileCredentialsAcquisition(_fileCredentials);
   }
@@ -43,11 +40,11 @@ class _CredentialsInputViewState extends State<CredentialsInputView> {
                   selection: TextSelection.fromPosition(
                       TextPosition(offset: widget._controller.text.length)));
             },
-            keyboardType: widget._kbType,
+            keyboardType: widget._credType.kbType,
             autocorrect: false,
             decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                hintText: widget._textHint)));
+                hintText: widget._credType.textHint)));
   }
 
   void callAppropriateCredentialSaveFunc() {
