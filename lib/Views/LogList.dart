@@ -63,8 +63,8 @@ class LogListState extends State<LogList> {
           .add(SingleFlightContainerView(Flights.listOfFlights[currentflid]));
       oldFlight = currentFlight;
     });
-    //empty container at the end, so bottom bar doesnt cover last element
-    flightsInList.add(Container(height: 100,decoration: BoxDecoration(color: Colors.transparent),));
+    //empty container at the end, so bottom bar doesn't cover last element
+    flightsInList.add(Container(height: 100,decoration: const BoxDecoration(color: Colors.transparent),));
     return flightsInList;
   }
 }
