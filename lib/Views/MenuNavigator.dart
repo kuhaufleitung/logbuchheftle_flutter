@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
+import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../Logic/FileCredentialsAcquisition.dart';
@@ -18,17 +19,25 @@ class MenuNavigator extends StatefulWidget {
 
 class _MenuNavigatorState extends State<MenuNavigator> {
   final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+  PersistentTabController(initialIndex: 0);
   late final FileCredentialsAcquisition fileCredentialsAcquisition;
+  late LogbookUpdate _logbookUpdate;
 
   _MenuNavigatorState();
 
   @override
   void initState() {
-    super.initState();
     fileCredentialsAcquisition =
         FileCredentialsAcquisition(widget._fileCredentials);
-    fileCredentialsAcquisition.readDataFromStorage();
+    _awaitDataLoad();
+    super.initState();
+  }
+
+  _awaitDataLoad() async {
+    await fileCredentialsAcquisition.readDataFromStorage();
+    _logbookUpdate = LogbookUpdate(widget._fileCredentials);
+    await _logbookUpdate.login();
+    await _logbookUpdate.updateLogbook();
   }
 
   @override
@@ -42,8 +51,8 @@ class _MenuNavigatorState extends State<MenuNavigator> {
               context,
               controller: _controller,
               screens: [
-                LogList(widget._fileCredentials),
-                SettingsView(widget._fileCredentials)
+                LogList(_logbookUpdate),
+                SettingsView(_logbookUpdate, widget._fileCredentials)
               ],
               items: _navBarItems(),
               confineInSafeArea: false,

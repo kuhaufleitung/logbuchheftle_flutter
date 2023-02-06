@@ -1,33 +1,32 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:logbuchheftle_flutter/Logic/LogbookStorage.dart';
 
 import '../Data/SingleFlight.dart';
 
 class FlightBuilder {
   static LinkedHashMap listOfFlights = LinkedHashMap<int, SingleFlight>();
-  static const String _filePath = "assets/logbook.json";
-  static bool _alreadyBuilt = false;
+  static final LogbookStorage _logbookStorage = LogbookStorage();
 
   static Future<void> populateFlightsList() async {
-    if (!_alreadyBuilt) {
-      Map jsonFileContent = await readJsonFile();
-      createSingleFlights(jsonFileContent);
+    if (!_logbookStorage.isEmpty()) {
+      Map jsonFileContent = _parseJson();
+      if (listOfFlights.isNotEmpty) {
+        listOfFlights.clear();
+      }
+      _createSingleFlights(jsonFileContent);
     }
   }
 
-  static Future<Map> readJsonFile() async {
-    String input = await rootBundle.loadString(_filePath);
-    if (input.isNotEmpty) {
-      var map = jsonDecode(input);
-      return map;
-    }
-    throw const FileSystemException();
+  static Map _parseJson() {
+    String input = _logbookStorage.getLogbook;
+    var map = jsonDecode(input);
+    return map;
   }
 
-  static void createSingleFlights(jsonContent) {
+  static void _createSingleFlights(jsonContent) {
     Map<String, dynamic> map = jsonContent as Map<String, dynamic>;
     map.forEach((key, value) {
       if (value["duplicate"] == 0 && value["deleted"] == "0") {
@@ -73,6 +72,5 @@ class FlightBuilder {
         listOfFlights[flid] = singleFlight;
       }
     });
-    _alreadyBuilt = true;
   }
 }

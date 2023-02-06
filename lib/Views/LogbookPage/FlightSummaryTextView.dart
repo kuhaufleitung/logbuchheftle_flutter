@@ -69,8 +69,10 @@ class FlightSummaryTextView extends StatelessWidget {
                 "[${selectedFlight.departureTime.format(context)}] - [${selectedFlight.arrivalTime.format(context)}] -> ${selectedFlight.flightDuration} min",
                 style: defaultStyle,
               ),
-              Text("${selectedFlight.departureLoc} - ${selectedFlight.arrivalLoc}",
-                  style: defaultStyle, textAlign: TextAlign.left)
+              Text(
+                  "${selectedFlight.departureLoc} - ${selectedFlight.arrivalLoc}",
+                  style: defaultStyle,
+                  textAlign: TextAlign.left)
             ],
           ),
         ),

@@ -7,13 +7,16 @@ import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 //TODO: ResponseFromServer -> get as string -> save to file (eventually backup)
 //TODO: invoke update() FlightCreation
 class ServerCommunication {
+  late http.Response _lastResponse;
   final FileCredentials _fileCredentials;
 
   ServerCommunication(this._fileCredentials);
 
   Future<http.Response> sendLoginRequest() async {
     //TODO: use HTTPS
-    Uri url = Uri.http('${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}', '/auth');
+    Uri url = Uri.http(
+        '${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}',
+        '/auth');
     String userColonPass =
         "${_fileCredentials.getUsername}:${_fileCredentials.getPassword}";
     Codec<String, String> strToBase64 = utf8.fuse(base64);
@@ -22,7 +25,9 @@ class ServerCommunication {
     await http.post(url, headers: {
       HttpHeaders.authorizationHeader: encodedAuth
       //TODO on error log
-    }).then((value) => {response = value}, onError: (value) => response = value);
+    }).then((value) => {response = value},
+        onError: (value) =>
+            throw ("Argument Error in sendLoginRequest. Perhaps no connection to server...${response.statusCode}"));
     return response;
   }
 
@@ -32,6 +37,15 @@ class ServerCommunication {
       HttpHeaders.authorizationHeader:
           "Bearer ${_fileCredentials.getJwtBearerToken}"
     });
+    _lastResponse = response;
     return response;
+  }
+
+  void setLastResponse(http.Response response) {
+    _lastResponse = response;
+  }
+
+  http.Response get getLastResponse {
+    return _lastResponse;
   }
 }

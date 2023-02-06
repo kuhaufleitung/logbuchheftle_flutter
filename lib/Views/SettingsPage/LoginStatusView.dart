@@ -21,6 +21,7 @@ class LoginStatusView extends StatefulWidget {
 class _LoginStatusViewState extends State<LoginStatusView> {
   final ValueNotifier<int> _showStatus = ValueNotifier<int>(0);
   final ValueNotifier<int> _greyOutButton = ValueNotifier<int>(0);
+
   // TODO: store/retrieve lastStatus
   Widget _lastStatus = const LoadingView();
 
