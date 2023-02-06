@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
-import 'package:logbuchheftle_flutter/Views/SettingsView.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../Logic/FileCredentialsAcquisition.dart';
-import 'LogList.dart';
+import 'LogbookPage/LogList.dart';
+import 'SettingsPage/SettingsView.dart';
 
 class MenuNavigator extends StatefulWidget {
   final String title;

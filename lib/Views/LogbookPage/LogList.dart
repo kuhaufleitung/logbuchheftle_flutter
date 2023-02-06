@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
-import 'package:logbuchheftle_flutter/Views/SingleFlightContainerView.dart';
-import 'package:logbuchheftle_flutter/Logic/Flights.dart';
-import 'package:logbuchheftle_flutter/Views/Inserts.dart';
+import 'package:logbuchheftle_flutter/Views/LogbookPage/SingleFlightContainerView.dart';
+import 'package:logbuchheftle_flutter/Logic/FlightBuilder.dart';
+import 'package:logbuchheftle_flutter/Views/LogbookPage/Inserts.dart';
 import 'package:logbuchheftle_flutter/Views/StatusViews/LoadingView.dart';
 
-import '../Data/SingleFlight.dart';
+import '../../Data/SingleFlight.dart';
 
 class LogList extends StatefulWidget {
   final FileCredentials _fileCredentials;
@@ -31,7 +31,7 @@ class LogListState extends State<LogList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Flights.populateFlightsList(),
+        future: FlightBuilder.populateFlightsList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
@@ -51,7 +51,7 @@ class LogListState extends State<LogList> {
     SingleFlight? oldFlight;
     List<Widget> flightsInList = [];
     Inserts inserter = Inserts();
-    Flights.listOfFlights.forEach((currentflid, currentFlight) {
+    FlightBuilder.listOfFlights.forEach((currentflid, currentFlight) {
       //we want some "caption" text when a new year, new month happens.
       //also separating flights from different days with padding
       //TODO: check if date/month to next flight is different
@@ -60,7 +60,7 @@ class LogListState extends State<LogList> {
         flightsInList.addAll(inserter.generate(oldFlight, currentFlight));
       }
       flightsInList
-          .add(SingleFlightContainerView(Flights.listOfFlights[currentflid]));
+          .add(SingleFlightContainerView(FlightBuilder.listOfFlights[currentflid]));
       oldFlight = currentFlight;
     });
     //empty container at the end, so bottom bar doesn't cover last element

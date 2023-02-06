@@ -32,7 +32,7 @@ class LogbookUpdate {
     Future<http.Response> responseCode = _serverComms.getLogbookUpdate();
     responseCode.then((value) => {setLastResponse(value)});
     if (_lastResponse.statusCode == 200) {
-      //TODO: log + undo static Flights.dart + setup Class for logbook file
+      //TODO: log + undo static FlightBuilder.dart + setup Class for logbook file
     } else {
       //TODO: log
     }

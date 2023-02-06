@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 
 import '../Data/SingleFlight.dart';
 
-class Flights {
+class FlightBuilder {
   static LinkedHashMap listOfFlights = LinkedHashMap<int, SingleFlight>();
   static const String _filePath = "assets/logbook.json";
   static bool _alreadyBuilt = false;

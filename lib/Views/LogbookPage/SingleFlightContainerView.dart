@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
-import 'package:logbuchheftle_flutter/Views/FlightDetailsTextView.dart';
-import 'package:logbuchheftle_flutter/Views/FlightSummaryTextView.dart';
+import 'package:logbuchheftle_flutter/Views/LogbookPage/FlightDetailsTextView.dart';
+import 'package:logbuchheftle_flutter/Views/LogbookPage/FlightSummaryTextView.dart';
 
 class SingleFlightContainerView extends StatefulWidget {
   final SingleFlight _flight;

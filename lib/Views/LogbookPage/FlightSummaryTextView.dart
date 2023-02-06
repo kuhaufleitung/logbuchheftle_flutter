@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Data/SingleFlight.dart';
+import '../../Data/SingleFlight.dart';
 
 class FlightSummaryTextView extends StatelessWidget {
   final SingleFlight selectedFlight;

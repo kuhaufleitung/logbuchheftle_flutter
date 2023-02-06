@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/CredentialsInputView.dart';
 import 'package:logbuchheftle_flutter/Data/CredentialsType.dart';
-import 'package:logbuchheftle_flutter/Views/LoginStatusView.dart';
+import 'package:logbuchheftle_flutter/Views/SettingsPage/LoginStatusView.dart';
 
 class SettingsView extends StatefulWidget {
   @override

@@ -1,0 +1,3 @@
+class FullLogbook {
+  String logbookJson = "";
+}

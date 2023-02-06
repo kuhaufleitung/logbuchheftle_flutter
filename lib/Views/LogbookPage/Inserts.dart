@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Data/SingleFlight.dart';
+import '../../Data/SingleFlight.dart';
 
 class Inserts {
   List<Widget> generate(SingleFlight? oldFlight, SingleFlight? currentFlight) {
