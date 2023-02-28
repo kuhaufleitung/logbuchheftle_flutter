@@ -22,6 +22,7 @@ class FlightBuilder {
 
   static Map _parseJson() {
     String input = _logbookStorage.getLogbook;
+    //TODO: handle empty logbook
     var map = jsonDecode(input);
     return map;
   }

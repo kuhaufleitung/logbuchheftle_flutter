@@ -17,7 +17,7 @@ class LogbookUpdate {
   Future<void> login() async {
     http.Response response = await _serverComms.sendLoginRequest();
     if (response.statusCode == 200) {
-      _fileCreds.setJwtBearerToken(_serverComms.getLastResponse.body);
+      _fileCreds.setJwtBearerToken(response.body);
       //TODO: log
     } else {
       //TODO: log

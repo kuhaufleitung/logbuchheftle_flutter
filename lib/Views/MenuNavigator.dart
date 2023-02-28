@@ -1,5 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
+import 'package:logbuchheftle_flutter/Logic/FlightBuilder.dart';
+import 'package:logbuchheftle_flutter/Logic/LogbookStorage.dart';
 import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -21,7 +24,7 @@ class _MenuNavigatorState extends State<MenuNavigator> {
   final PersistentTabController _controller =
   PersistentTabController(initialIndex: 0);
   late final FileCredentialsAcquisition fileCredentialsAcquisition;
-  late LogbookUpdate _logbookUpdate;
+  LogbookUpdate? _logbookUpdate;
 
   _MenuNavigatorState();
 
@@ -34,10 +37,17 @@ class _MenuNavigatorState extends State<MenuNavigator> {
   }
 
   _awaitDataLoad() async {
-    await fileCredentialsAcquisition.readDataFromStorage();
     _logbookUpdate = LogbookUpdate(widget._fileCredentials);
-    await _logbookUpdate.login();
-    await _logbookUpdate.updateLogbook();
+    await fileCredentialsAcquisition.readDataFromStorage();
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      LogbookStorage storage = LogbookStorage();
+      storage.readFromStorage();
+      await FlightBuilder.populateFlightsList();
+    } else {
+      await _logbookUpdate?.login();
+      await _logbookUpdate?.updateLogbook();
+    }
   }
 
   @override
@@ -51,8 +61,8 @@ class _MenuNavigatorState extends State<MenuNavigator> {
               context,
               controller: _controller,
               screens: [
-                LogList(_logbookUpdate),
-                SettingsView(_logbookUpdate, widget._fileCredentials)
+                LogList(_logbookUpdate!),
+                SettingsView(_logbookUpdate!, widget._fileCredentials)
               ],
               items: _navBarItems(),
               confineInSafeArea: false,

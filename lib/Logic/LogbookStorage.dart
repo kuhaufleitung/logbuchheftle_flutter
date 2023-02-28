@@ -26,12 +26,13 @@ class LogbookStorage {
   }
 
   void readFromStorage() async {
-    _logbook.logbookJson = await _localPath;
+    final path = await _localFile;
+    _logbook.logbookJson = await path.readAsString();
   }
 
   void writeToStorage(String logbookContent) async {
     final file = await _localFile;
-    file.writeAsString(logbookContent);
+    await file.writeAsString(logbookContent);
   }
 
   bool isEmpty() {

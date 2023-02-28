@@ -7,7 +7,7 @@ import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 //TODO: ResponseFromServer -> get as string -> save to file (eventually backup)
 //TODO: invoke update() FlightCreation
 class ServerCommunication {
-  late http.Response _lastResponse;
+  http.Response _lastResponse = http.Response("", 418);
   final FileCredentials _fileCredentials;
 
   ServerCommunication(this._fileCredentials);
@@ -32,7 +32,8 @@ class ServerCommunication {
   }
 
   Future<http.Response> getLogbookUpdate() async {
-    Uri url = Uri.https(_fileCredentials.getServerAddress, '/rest/logbook');
+    //TODO: use HTTPS
+    Uri url = Uri.http('${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}', '/rest/logbook');
     http.Response response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader:
           "Bearer ${_fileCredentials.getJwtBearerToken}"
