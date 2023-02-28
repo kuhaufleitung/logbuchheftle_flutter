@@ -33,7 +33,13 @@ class FlightBuilder {
       if (value["duplicate"] == 0 && value["deleted"] == "0") {
         String pilotName = value["pilotname"];
         String copilotName = "";
-        String model = value["planedesignation"];
+
+        // apparently people fucked up defining the afc model in Vereinsflieger. Therefore we gotta check it...
+        String model = "unknown";
+        if (value["planedesignation"] != null) {
+          model = value["planedesignation"];
+        }
+
         String callsign = value['callsign'];
         String departureLoc = value["departurelocation"];
         String arrivalLoc = value["arrivallocation"];
