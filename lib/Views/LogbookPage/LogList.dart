@@ -1,6 +1,6 @@
+
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Logic/FlightBuilder.dart';
-import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/Inserts.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/SingleFlightContainerView.dart';
 
@@ -8,9 +8,8 @@ import '../../Data/SingleFlight.dart';
 import '../StatusViews/LoadingView.dart';
 
 class LogList extends StatefulWidget {
-  final LogbookUpdate _logbookUpdate;
 
-  const LogList(this._logbookUpdate, {super.key});
+  const LogList({super.key});
 
   @override
   LogListState createState() => LogListState();
@@ -27,7 +26,7 @@ class LogListState extends State<LogList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FlightBuilder.populateFlightsList(),
+        future: Future.value(FlightBuilder.listOfFlights),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(

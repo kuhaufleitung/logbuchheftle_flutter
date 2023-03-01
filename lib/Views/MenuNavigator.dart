@@ -4,6 +4,7 @@ import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/FlightBuilder.dart';
 import 'package:logbuchheftle_flutter/Logic/LogbookStorage.dart';
 import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
+import 'package:logbuchheftle_flutter/Views/StatusViews/LoadingView.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../Logic/FileCredentialsAcquisition.dart';
@@ -22,18 +23,19 @@ class MenuNavigator extends StatefulWidget {
 
 class _MenuNavigatorState extends State<MenuNavigator> {
   final PersistentTabController _controller =
-  PersistentTabController(initialIndex: 0);
+      PersistentTabController(initialIndex: 0);
   late final FileCredentialsAcquisition fileCredentialsAcquisition;
   LogbookUpdate? _logbookUpdate;
+  var isLoading = true;
 
   _MenuNavigatorState();
 
   @override
   void initState() {
+    super.initState();
     fileCredentialsAcquisition =
         FileCredentialsAcquisition(widget._fileCredentials);
     _awaitDataLoad();
-    super.initState();
   }
 
   _awaitDataLoad() async {
@@ -43,10 +45,12 @@ class _MenuNavigatorState extends State<MenuNavigator> {
     if (connectivityResult == ConnectivityResult.none) {
       LogbookStorage storage = LogbookStorage();
       storage.readFromStorage();
-      await FlightBuilder.populateFlightsList();
     } else {
       await _logbookUpdate?.login();
       await _logbookUpdate?.updateLogbook();
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -61,7 +65,7 @@ class _MenuNavigatorState extends State<MenuNavigator> {
               context,
               controller: _controller,
               screens: [
-                LogList(_logbookUpdate!),
+                _buildLogList(),
                 SettingsView(_logbookUpdate!, widget._fileCredentials)
               ],
               items: _navBarItems(),
@@ -81,6 +85,19 @@ class _MenuNavigatorState extends State<MenuNavigator> {
               ),
               navBarStyle: NavBarStyle.style1,
             )));
+  }
+
+  Widget _buildLogList() {
+    return FutureBuilder(
+      future: FlightBuilder.populateFlightsList(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return LogList();
+        } else {
+          return const LoadingView();
+        }
+      },
+    );
   }
 
   List<PersistentBottomNavBarItem> _navBarItems() {
