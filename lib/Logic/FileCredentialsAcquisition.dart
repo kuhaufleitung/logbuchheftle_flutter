@@ -11,18 +11,18 @@ class FileCredentialsAcquisition {
 
   Future<void> readDataFromStorage() async {
     try {
-      await _secureStorage
-          .read(key: 'serverIp', aOptions: _getAndroidOptions())
-          .then((value) => _fileCredentials.setServerAddress(value!));
-      await _secureStorage
-          .read(key: 'port', aOptions: _getAndroidOptions())
-          .then((value) => _fileCredentials.setPort(value!));
-      await _secureStorage
-          .read(key: 'username', aOptions: _getAndroidOptions())
-          .then((value) => _fileCredentials.setUsername(value!));
-      await _secureStorage
-          .read(key: 'password', aOptions: _getAndroidOptions())
-          .then((value) => _fileCredentials.setPassword(value!));
+      String? serverAddress = await _secureStorage.read(
+          key: 'serverIp', aOptions: _getAndroidOptions());
+      String? port = await _secureStorage.read(
+          key: 'port', aOptions: _getAndroidOptions());
+      String? username = await _secureStorage
+          .read(key: 'username', aOptions: _getAndroidOptions());
+      String? password = await _secureStorage
+          .read(key: 'password', aOptions: _getAndroidOptions());
+      _fileCredentials.setServerAddress(serverAddress!);
+      _fileCredentials.setPort(port!);
+      _fileCredentials.setUsername(username!);
+      _fileCredentials.setPassword(password!);
     } catch (e) {
       print(e);
     }
@@ -64,8 +64,6 @@ class FileCredentialsAcquisition {
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
         encryptedSharedPreferences: true,
       );
-  
-  void writeJWTToStorage() {
-    
-  }
+
+  void writeJWTToStorage() {}
 }

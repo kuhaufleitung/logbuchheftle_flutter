@@ -1,39 +1,43 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:logbuchheftle_flutter/Logic/LogbookStorage.dart';
 
 import '../Data/SingleFlight.dart';
 
 class FlightBuilder {
   static LinkedHashMap listOfFlights = LinkedHashMap<int, SingleFlight>();
-  static const String _filePath = "assets/logbook.json";
-  static bool _alreadyBuilt = false;
+  static final LogbookStorage _logbookStorage = LogbookStorage();
 
   static Future<void> populateFlightsList() async {
-    if (!_alreadyBuilt) {
-      Map jsonFileContent = await readJsonFile();
-      createSingleFlights(jsonFileContent);
+    //this is not dependent if it's the local or online version as the online version instantly overwrites the local one
+    _logbookStorage.readFromStorage();
+    if (!_logbookStorage.isEmpty()) {
+      List<dynamic> jsonFileContent = _parseJson();
+      if (listOfFlights.isNotEmpty) {
+        listOfFlights.clear();
+      }
+      _createSingleFlights(jsonFileContent);
     }
   }
 
-  static Future<Map> readJsonFile() async {
-    String input = await rootBundle.loadString(_filePath);
-    if (input.isNotEmpty) {
-      var map = jsonDecode(input);
-      return map;
-    }
-    throw const FileSystemException();
+  static List<dynamic> _parseJson() {
+    return jsonDecode(_logbookStorage.getLogbook);
   }
 
-  static void createSingleFlights(jsonContent) {
-    Map<String, dynamic> map = jsonContent as Map<String, dynamic>;
-    map.forEach((key, value) {
+  static void _createSingleFlights(jsonContent) {
+    jsonContent.forEach((value) {
       if (value["duplicate"] == 0 && value["deleted"] == "0") {
         String pilotName = value["pilotname"];
         String copilotName = "";
-        String model = value["planedesignation"];
+
+        // apparently people fucked up defining the afc model in Vereinsflieger. Therefore we gotta check it...
+        String model = "unknown";
+        if (value["planedesignation"] != null) {
+          model = value["planedesignation"];
+        }
+
         String callsign = value['callsign'];
         String departureLoc = value["departurelocation"];
         String arrivalLoc = value["arrivallocation"];
@@ -73,6 +77,5 @@ class FlightBuilder {
         listOfFlights[flid] = singleFlight;
       }
     });
-    _alreadyBuilt = true;
   }
 }

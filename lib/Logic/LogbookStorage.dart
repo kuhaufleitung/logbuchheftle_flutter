@@ -5,8 +5,11 @@ import 'package:path_provider/path_provider.dart';
 
 class LogbookStorage {
   final String _fileName = "logbook.json";
-  final FullLogbook logbook = FullLogbook();
-  LogbookStorage();
+  final FullLogbook _logbook = FullLogbook();
+
+  String get getLogbook {
+    return _logbook.logbookJson;
+  }
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -18,15 +21,20 @@ class LogbookStorage {
     return File('$path/$_fileName');
   }
 
-  void readFromStorage() async {
-    logbook.logbookJson = await _localPath;
+  Future<void> readFromStorage() async {
+    final storageFile = await _localFile;
+    if (!storageFile.existsSync()) {
+      storageFile.createSync();
+    }
+    _logbook.logbookJson = await storageFile.readAsString();
   }
-  void writeToStorage(String logbookContent) async {
+
+  Future<void> writeToStorage(String logbookContent) async {
     final file = await _localFile;
-    file.writeAsString(logbookContent);
+    await file.writeAsString(logbookContent);
   }
 
   bool isEmpty() {
-    return logbook.logbookJson.isEmpty;
+    return _logbook.logbookJson.isEmpty;
   }
 }

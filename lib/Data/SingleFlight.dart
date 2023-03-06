@@ -44,7 +44,6 @@ class SingleFlight {
     DateTime dateCasted = DateTime.parse(date);
     return DateFormat("d").format(dateCasted);
   }
-
 }
 
 enum Launchtype {
@@ -92,6 +91,5 @@ extension ParseFromString on Launchtype {
         break;
     }
     return result;
-
   }
 }

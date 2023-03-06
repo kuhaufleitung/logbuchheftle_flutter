@@ -112,7 +112,9 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
                       child: AnimatedOpacity(
                           duration: const Duration(milliseconds: 300),
                           opacity: _animationController.isAnimating ? 0 : 1,
-                          child: _animationController.isAnimating ? Container() : _currentTextWidgetInfo)));
+                          child: _animationController.isAnimating
+                              ? Container()
+                              : _currentTextWidgetInfo)));
             }));
   }
 }

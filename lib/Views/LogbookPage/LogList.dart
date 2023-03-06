@@ -1,37 +1,32 @@
+
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
-import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
-import 'package:logbuchheftle_flutter/Views/LogbookPage/SingleFlightContainerView.dart';
 import 'package:logbuchheftle_flutter/Logic/FlightBuilder.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/Inserts.dart';
-import 'package:logbuchheftle_flutter/Views/StatusViews/LoadingView.dart';
+import 'package:logbuchheftle_flutter/Views/LogbookPage/SingleFlightContainerView.dart';
 
 import '../../Data/SingleFlight.dart';
+import '../StatusViews/LoadingView.dart';
 
 class LogList extends StatefulWidget {
-  final FileCredentials _fileCredentials;
-  const LogList(this._fileCredentials, {super.key});
+
+  const LogList({super.key});
 
   @override
   LogListState createState() => LogListState();
 }
 
 class LogListState extends State<LogList> {
-
-
-  late final LogbookUpdate _logbookInst;
   LogListState();
+
   @override
   void initState() {
     super.initState();
-    _logbookInst = LogbookUpdate(widget._fileCredentials);
-    //_logbookInst.login();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FlightBuilder.populateFlightsList(),
+        future: Future.value(FlightBuilder.listOfFlights),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
@@ -59,12 +54,15 @@ class LogListState extends State<LogList> {
       if (inserts.isNotEmpty) {
         flightsInList.addAll(inserter.generate(oldFlight, currentFlight));
       }
-      flightsInList
-          .add(SingleFlightContainerView(FlightBuilder.listOfFlights[currentflid]));
+      flightsInList.add(
+          SingleFlightContainerView(FlightBuilder.listOfFlights[currentflid]));
       oldFlight = currentFlight;
     });
     //empty container at the end, so bottom bar doesn't cover last element
-    flightsInList.add(Container(height: 100,decoration: const BoxDecoration(color: Colors.transparent),));
+    flightsInList.add(Container(
+      height: 100,
+      decoration: const BoxDecoration(color: Colors.transparent),
+    ));
     return flightsInList;
   }
 }

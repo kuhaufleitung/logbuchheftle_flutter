@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/CredentialsInputView.dart';
 import 'package:logbuchheftle_flutter/Data/CredentialsType.dart';
+import 'package:logbuchheftle_flutter/Logic/LogbookUpdate.dart';
 import 'package:logbuchheftle_flutter/Views/SettingsPage/LoginStatusView.dart';
 
 class SettingsView extends StatefulWidget {
@@ -9,8 +10,9 @@ class SettingsView extends StatefulWidget {
   State<SettingsView> createState() => _SettingsViewState();
 
   final FileCredentials _fileCredentials;
+  final LogbookUpdate _logbookUpdate;
 
-  const SettingsView(this._fileCredentials, {super.key});
+  const SettingsView(this._logbookUpdate, this._fileCredentials, {super.key});
 }
 
 class _SettingsViewState extends State<SettingsView> {
