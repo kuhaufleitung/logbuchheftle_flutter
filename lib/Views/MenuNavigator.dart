@@ -44,7 +44,7 @@ class _MenuNavigatorState extends State<MenuNavigator> {
     final connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       LogbookStorage storage = LogbookStorage();
-      storage.readFromStorage();
+      await storage.readFromStorage();
     } else {
       await _logbookUpdate?.login();
       await _logbookUpdate?.updateLogbook();

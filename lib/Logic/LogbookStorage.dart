@@ -7,10 +7,6 @@ class LogbookStorage {
   final String _fileName = "logbook.json";
   final FullLogbook _logbook = FullLogbook();
 
-  LogbookStorage() {
-    readFromStorage();
-  }
-
   String get getLogbook {
     return _logbook.logbookJson;
   }
@@ -25,12 +21,15 @@ class LogbookStorage {
     return File('$path/$_fileName');
   }
 
-  void readFromStorage() async {
-    final path = await _localFile;
-    _logbook.logbookJson = await path.readAsString();
+  Future<void> readFromStorage() async {
+    final storageFile = await _localFile;
+    if (!storageFile.existsSync()) {
+      storageFile.createSync();
+    }
+    _logbook.logbookJson = await storageFile.readAsString();
   }
 
-  void writeToStorage(String logbookContent) async {
+  Future<void> writeToStorage(String logbookContent) async {
     final file = await _localFile;
     await file.writeAsString(logbookContent);
   }

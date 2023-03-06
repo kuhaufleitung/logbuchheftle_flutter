@@ -11,8 +11,10 @@ class FlightBuilder {
   static final LogbookStorage _logbookStorage = LogbookStorage();
 
   static Future<void> populateFlightsList() async {
+    //this is not dependent if it's the local or online version as the online version instantly overwrites the local one
+    _logbookStorage.readFromStorage();
     if (!_logbookStorage.isEmpty()) {
-      Map jsonFileContent = _parseJson();
+      List<dynamic> jsonFileContent = _parseJson();
       if (listOfFlights.isNotEmpty) {
         listOfFlights.clear();
       }
@@ -20,16 +22,12 @@ class FlightBuilder {
     }
   }
 
-  static Map _parseJson() {
-    String input = _logbookStorage.getLogbook;
-    //TODO: handle empty logbook
-    var map = jsonDecode(input);
-    return map;
+  static List<dynamic> _parseJson() {
+    return jsonDecode(_logbookStorage.getLogbook);
   }
 
   static void _createSingleFlights(jsonContent) {
-    Map<String, dynamic> map = jsonContent as Map<String, dynamic>;
-    map.forEach((key, value) {
+    jsonContent.forEach((value) {
       if (value["duplicate"] == 0 && value["deleted"] == "0") {
         String pilotName = value["pilotname"];
         String copilotName = "";

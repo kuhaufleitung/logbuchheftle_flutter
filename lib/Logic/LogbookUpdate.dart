@@ -29,7 +29,8 @@ class LogbookUpdate {
     if (response.statusCode == 200) {
       isLocalDb = false;
       LogbookStorage logbookStorage = LogbookStorage();
-      logbookStorage.writeToStorage(response.body);
+      await logbookStorage.writeToStorage(response.body);
+      await logbookStorage.readFromStorage();
       return FlightBuilder.populateFlightsList();
       //TODO: log
     } else {
