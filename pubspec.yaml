@@ -43,6 +43,7 @@ dependencies:
   connectivity_plus: ^3.0.2
   persistent_bottom_nav_bar: ^5.0.2
   flutter_secure_storage: ^7.0.1
+  flutter_launcher_icons: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +58,14 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/Ico_logbuch.png"
+  remove_alpha_ios: true
+  adaptive_icon_foreground: "assets/Ico_logbuch_fore.png"
+  adaptive_icon_background: "#ffffff"
 
 # The following section is specific to Flutter packages.
 flutter:
