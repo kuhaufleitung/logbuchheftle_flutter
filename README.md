@@ -1,4 +1,5 @@
-# logbuchheftle_flutter
+# <img src="assets/Ico_logbuch_prev.png" width="40"/> logbuchheftle_flutter
+
 
 Frontend des `LogbuchheftleServer`s. Eine elektronische Möglichkeit sein Logbuch zu führen.
 
@@ -7,7 +8,5 @@ Frontend des `LogbuchheftleServer`s. Eine elektronische Möglichkeit sein Logbuc
 ## NOTE: Fehlende Features
 Bislang fehlen noch ein paar Features bis zum Release:
 - Lokale Speicherung des Logbuchs
-- Connectivity zum Server
-- Icon
 - Settings Page
 - Optional: TimeCalculator
