@@ -13,8 +13,7 @@ class ServerCommunication {
   ServerCommunication(this._fileCredentials);
 
   Future<http.Response> sendLoginRequest() async {
-    //TODO: use HTTPS
-    Uri url = Uri.http(
+    Uri url = Uri.https(
         '${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}',
         '/auth');
     String userColonPass =
@@ -32,8 +31,7 @@ class ServerCommunication {
   }
 
   Future<http.Response> getLogbookUpdate() async {
-    //TODO: use HTTPS
-    Uri url = Uri.http('${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}', '/rest/logbook');
+    Uri url = Uri.https('${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}', '/rest/logbook');
     http.Response response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader:
           "Bearer ${_fileCredentials.getJwtBearerToken}"
