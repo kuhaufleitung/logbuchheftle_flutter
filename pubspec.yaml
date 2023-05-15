@@ -40,10 +40,10 @@ dependencies:
   intl: ^0.18.0
   path_provider: ^2.0.12
   io: ^1.0.4
-  connectivity_plus: ^3.0.2
+  connectivity_plus: ^4.0.0
   persistent_bottom_nav_bar: ^5.0.2
-  flutter_secure_storage: ^7.0.1
-  flutter_launcher_icons: ^0.12.0
+  flutter_secure_storage: ^8.0.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
