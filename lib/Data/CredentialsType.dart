@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 enum CredentialsType {
-  ADDRESS(TextInputType.number, false, "e.g meinwebserver.de"),
+  ADDRESS(TextInputType.text, false, "e.g meinwebserver.de"),
   PORT(TextInputType.number, false, "e.g 8000"),
   USERNAME(TextInputType.text, false, "Loginname des Servers"),
   PASSWORD(TextInputType.text, true, "Passwort des Servers");
