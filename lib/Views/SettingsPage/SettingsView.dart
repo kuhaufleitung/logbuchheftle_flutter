@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logbuchheftle_flutter/Data/CredentialsTextControllerData.dart';
 import 'package:logbuchheftle_flutter/Data/FileCredentials.dart';
 import 'package:logbuchheftle_flutter/Logic/CredentialsInputView.dart';
 import 'package:logbuchheftle_flutter/Data/CredentialsType.dart';
@@ -16,21 +17,19 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  late final TextEditingController _addressController;
-  late final TextEditingController _portController;
-  late final TextEditingController _usernameController;
-  late final TextEditingController _passwordController;
+  final CredentialsTextControllerData _textControllerData =
+      CredentialsTextControllerData();
 
   @override
   void initState() {
     super.initState();
-    _addressController =
+    _textControllerData.addressController =
         TextEditingController(text: widget._fileCredentials.getServerAddress);
-    _portController =
+    _textControllerData.portController =
         TextEditingController(text: widget._fileCredentials.getPort);
-    _usernameController =
+    _textControllerData.usernameController =
         TextEditingController(text: widget._fileCredentials.getUsername);
-    _passwordController =
+    _textControllerData.passwordController =
         TextEditingController(text: widget._fileCredentials.getPassword);
   }
 
@@ -41,21 +40,21 @@ class _SettingsViewState extends State<SettingsView> {
         child: Column(
           children: [
             const Text("URL des Servers:"),
-            CredentialsInputView(CredentialsType.ADDRESS, _addressController,
-                widget._fileCredentials),
+            CredentialsInputView(
+                CredentialsType.ADDRESS, _textControllerData.addressController),
             Container(height: 20.0),
             const Text("Port des Servers:"),
             CredentialsInputView(
-                CredentialsType.PORT, _portController, widget._fileCredentials),
+                CredentialsType.PORT, _textControllerData.portController),
             Container(height: 20.0),
             const Text("Login:"),
-            CredentialsInputView(CredentialsType.USERNAME, _usernameController,
-                widget._fileCredentials),
+            CredentialsInputView(CredentialsType.USERNAME,
+                _textControllerData.usernameController),
             Container(height: 20.0),
             const Text("Passwort:"),
-            CredentialsInputView(CredentialsType.PASSWORD, _passwordController,
-                widget._fileCredentials),
-            LoginStatusView(widget._fileCredentials)
+            CredentialsInputView(CredentialsType.PASSWORD,
+                _textControllerData.passwordController),
+            LoginStatusView(widget._fileCredentials, _textControllerData)
           ],
         ));
   }

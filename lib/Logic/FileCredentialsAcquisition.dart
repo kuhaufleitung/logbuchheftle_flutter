@@ -1,5 +1,4 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:logbuchheftle_flutter/Data/CredentialsType.dart';
 
 import '../Data/FileCredentials.dart';
 
@@ -28,37 +27,23 @@ class FileCredentialsAcquisition {
     }
   }
 
-  void writeDataToStorage(CredentialsType action) async {
-    try {
-      switch (action) {
-        case CredentialsType.ADDRESS:
-          await _secureStorage.write(
-              key: 'serverIp',
-              aOptions: _getAndroidOptions(),
-              value: _fileCredentials.getServerAddress);
-          break;
-        case CredentialsType.PORT:
-          await _secureStorage.write(
-              key: 'port',
-              aOptions: _getAndroidOptions(),
-              value: _fileCredentials.getPort);
-          break;
-        case CredentialsType.USERNAME:
-          await _secureStorage.write(
-              key: 'username',
-              aOptions: _getAndroidOptions(),
-              value: _fileCredentials.getUsername);
-          break;
-        case CredentialsType.PASSWORD:
-          await _secureStorage.write(
-              key: 'password',
-              aOptions: _getAndroidOptions(),
-              value: _fileCredentials.getPassword);
-          break;
-      }
-    } catch (e) {
-      print(e);
-    }
+  void writeAllDataToStorage() async {
+    await _secureStorage.write(
+        key: 'serverIp',
+        aOptions: _getAndroidOptions(),
+        value: _fileCredentials.getServerAddress);
+    await _secureStorage.write(
+        key: 'port',
+        aOptions: _getAndroidOptions(),
+        value: _fileCredentials.getPort);
+    await _secureStorage.write(
+        key: 'username',
+        aOptions: _getAndroidOptions(),
+        value: _fileCredentials.getUsername);
+    await _secureStorage.write(
+        key: 'password',
+        aOptions: _getAndroidOptions(),
+        value: _fileCredentials.getPassword);
   }
 
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
