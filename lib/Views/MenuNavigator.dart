@@ -92,7 +92,7 @@ class _MenuNavigatorState extends State<MenuNavigator> {
       future: FlightBuilder.populateFlightsList(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return LogList();
+          return const LogList();
         } else {
           return const LoadingView();
         }
