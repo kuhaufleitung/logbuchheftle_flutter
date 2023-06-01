@@ -41,6 +41,7 @@ class _CredentialsInputViewState extends State<CredentialsInputView> {
             },
             keyboardType: widget._credType.kbType,
             autocorrect: false,
+            obscureText: widget._credType.hiddenChars,
             decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 hintText: widget._credType.textHint)));
