@@ -43,7 +43,7 @@ class _SettingsViewState extends State<SettingsView> {
             CredentialsInputView(
                 CredentialsType.ADDRESS, _textControllerData.addressController),
             Container(height: 20.0),
-            const Text("Port des Servers:"),
+            const Text("Port des Servers (Optional):"),
             CredentialsInputView(
                 CredentialsType.PORT, _textControllerData.portController),
             Container(height: 20.0),

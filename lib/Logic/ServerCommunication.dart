@@ -14,7 +14,7 @@ class ServerCommunication {
 
   Future<http.Response> sendLoginRequest() async {
     Uri url = Uri.https(
-        '${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}',
+        buildURL(),
         '/auth');
     String userColonPass =
         "${_fileCredentials.getUsername}:${_fileCredentials.getPassword}";
@@ -26,12 +26,14 @@ class ServerCommunication {
       //TODO on error log
     }).then((value) => {response = value},
         onError: (value) =>
-            throw ("Argument Error in sendLoginRequest. Perhaps no connection to server...${response.statusCode}"));
+            throw ("Argument Error in sendLoginRequest. Perhaps no connection to server... Error Code: ${response.statusCode}"));
     return response;
   }
 
   Future<http.Response> getLogbookUpdate() async {
-    Uri url = Uri.https('${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}', '/rest/logbook');
+    Uri url = Uri.https(
+        '${_fileCredentials.getServerAddress}:${_fileCredentials.getPort}',
+        '/rest/logbook');
     http.Response response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader:
           "Bearer ${_fileCredentials.getJwtBearerToken}"
@@ -46,5 +48,12 @@ class ServerCommunication {
 
   http.Response get getLastResponse {
     return _lastResponse;
+  }
+
+  String buildURL() {
+    //add port and colon if set
+    return _fileCredentials.getPort == ""
+        ? _fileCredentials.getServerAddress
+        : "${_fileCredentials.getUsername}:${_fileCredentials.getPassword}";
   }
 }
