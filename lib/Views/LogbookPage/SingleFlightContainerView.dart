@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
+import 'package:logbuchheftle_flutter/Views/Design.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/FlightDetailsTextView.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/FlightSummaryTextView.dart';
 
@@ -100,13 +101,7 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
                   margin: const EdgeInsets.fromLTRB(0, 0, 0, 6.0),
                   height: _animation.value,
                   width: _animationWidth.value,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      gradient: const RadialGradient(
-                          center: FractionalOffset(0.2, 3),
-                          radius: 4,
-                          stops: [0.6, 1],
-                          colors: [Colors.indigo, Colors.blue])),
+                  decoration: Design.singleFlightBox(),
                   child: SizeTransition(
                       sizeFactor: _animation,
                       child: AnimatedOpacity(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Data/SingleFlight.dart';
+import '../Design.dart';
 
 class Inserts {
   List<Widget> generate(SingleFlight? oldFlight, SingleFlight? currentFlight) {
@@ -41,24 +42,12 @@ class Inserts {
 
   Widget _yearWidget(SingleFlight currentFlight) {
     String year = currentFlight.getYear();
-    return ShaderMask(
-        shaderCallback: (bounds) => const LinearGradient(
-                colors: [Colors.indigo, Colors.blue], tileMode: TileMode.mirror)
-            .createShader(bounds),
-        blendMode: BlendMode.srcIn,
-        child: Text(year,
-            style: const TextStyle(fontSize: 80, fontWeight: FontWeight.bold)));
+    return Design.yearStyle(year);
   }
 
   Widget _monthWidget(SingleFlight currentFlight) {
     String month = currentFlight.getMonth();
-    return ShaderMask(
-        shaderCallback: (bounds) => const LinearGradient(
-                colors: [Colors.grey, Colors.white], tileMode: TileMode.mirror)
-            .createShader(bounds),
-        blendMode: BlendMode.srcIn,
-        child: Text(month,
-            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)));
+    return Design.monthStyle(month);
   }
 
   Widget _daySpacer() {

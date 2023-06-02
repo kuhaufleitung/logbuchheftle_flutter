@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
+import 'package:logbuchheftle_flutter/Views/Design.dart';
 
 import '../../Logic/FlightBuilder.dart';
 
@@ -28,74 +29,87 @@ class FlightDetailsTextView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text("Flugnr.:    ", style: fatStyle()),
-                    Text(consecutiveFlightNumber, style: defaultStyle())
+                    Text("Flugnr.:    ",
+                        style: Design.defaultDetailsViewBoldStyle()),
+                    Text(consecutiveFlightNumber,
+                        style: Design.defaultDetailsViewStyle())
                   ],
                 ),
                 Row(children: [
-                  Text("Datum:    ", style: fatStyle()),
-                  Text(selectedFlight.date, style: defaultStyle())
+                  Text("Datum:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.date,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Modell:    ", style: fatStyle()),
-                  Text(selectedFlight.model, style: defaultStyle())
+                  Text("Modell:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.model,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Callsign:    ", style: fatStyle()),
-                  Text(selectedFlight.callsign, style: defaultStyle())
+                  Text("Callsign:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.callsign,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Pilot:    ", style: fatStyle()),
-                  Text(selectedFlight.pilotName, style: defaultStyle())
+                  Text("Pilot:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.pilotName,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Begleiter:    ", style: fatStyle()),
-                  Text(selectedFlight.copilotName, style: defaultStyle())
+                  Text("Begleiter:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.copilotName,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Startart:    ", style: fatStyle()),
-                  Text(selectedFlight.launchType.name, style: defaultStyle())
+                  Text("Startart:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.launchType.name,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Abflugort:    ", style: fatStyle()),
-                  Text(selectedFlight.departureLoc, style: defaultStyle())
+                  Text("Abflugort:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.departureLoc,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Zielort:    ", style: fatStyle()),
-                  Text(selectedFlight.arrivalLoc, style: defaultStyle())
+                  Text("Zielort:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
+                  Text(selectedFlight.arrivalLoc,
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Startzeit (UTC):    ", style: fatStyle()),
+                  Text("Startzeit (UTC):    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
                   Text(selectedFlight.departureTime.format(context),
-                      style: defaultStyle())
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Landezeit(UTC):    ", style: fatStyle()),
+                  Text("Landezeit(UTC):    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
                   Text(selectedFlight.arrivalTime.format(context),
-                      style: defaultStyle())
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Flugdauer:    ", style: fatStyle()),
+                  Text("Flugdauer:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
                   Text('${selectedFlight.flightDuration.toString()}min',
-                      style: defaultStyle())
+                      style: Design.defaultDetailsViewStyle())
                 ]),
                 Row(children: [
-                  Text("Zuletzt bearbeitet am:    ", style: fatStyle()),
+                  Text("Zuletzt bearbeitet am:    ",
+                      style: Design.defaultDetailsViewBoldStyle()),
                   //TODO: read -> Flug zuletzt bearbeitet am...
-                  Text("TODO", style: defaultStyle())
+                  Text("TODO", style: Design.defaultDetailsViewStyle())
                 ])
               ],
             )
           ],
         ));
-  }
-
-  TextStyle defaultStyle() {
-    return const TextStyle(color: Colors.white, fontSize: 20.0);
-  }
-
-  TextStyle fatStyle() {
-    return const TextStyle(
-        color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold);
   }
 }

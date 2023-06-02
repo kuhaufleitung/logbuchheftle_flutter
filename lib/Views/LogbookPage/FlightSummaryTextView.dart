@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logbuchheftle_flutter/Views/Design.dart';
 
 import '../../Data/SingleFlight.dart';
 
@@ -6,14 +7,6 @@ class FlightSummaryTextView extends StatelessWidget {
   final SingleFlight selectedFlight;
 
   const FlightSummaryTextView({super.key, required this.selectedFlight});
-
-  final TextStyle defaultBoldStyle = const TextStyle(
-      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14);
-  final TextStyle defaultStyle = const TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.normal,
-      height: 0,
-      fontSize: 14);
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +27,18 @@ class FlightSummaryTextView extends StatelessWidget {
                       children: [
                         Text(
                           selectedFlight.date,
-                          style: defaultBoldStyle,
+                          style: Design.defaultSummaryViewBoldStyle(),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(selectedFlight.callsign, style: defaultStyle),
-                            Text(selectedFlight.model, style: defaultStyle),
+                            Text(selectedFlight.callsign,
+                                style: Design.defaultSummaryViewStyle()),
+                            Text(selectedFlight.model,
+                                style: Design.defaultSummaryViewStyle()),
                             Text(
                               selectedFlight.launchType.parseToSingleLetter(),
-                              style: defaultBoldStyle,
+                              style: Design.defaultSummaryViewBoldStyle(),
                             )
                           ],
                         ),
@@ -52,9 +47,10 @@ class FlightSummaryTextView extends StatelessWidget {
                     children: [
                       Text(
                         selectedFlight.pilotName,
-                        style: defaultStyle,
+                        style: Design.defaultSummaryViewStyle(),
                       ),
-                      Text(selectedFlight.copilotName, style: defaultStyle)
+                      Text(selectedFlight.copilotName,
+                          style: Design.defaultSummaryViewStyle())
                     ],
                   )
                 ],
@@ -67,11 +63,11 @@ class FlightSummaryTextView extends StatelessWidget {
               ),
               Text(
                 "[${selectedFlight.departureTime.format(context)}] - [${selectedFlight.arrivalTime.format(context)}] -> ${selectedFlight.flightDuration} min",
-                style: defaultStyle,
+                style: Design.defaultSummaryViewStyle(),
               ),
               Text(
                   "${selectedFlight.departureLoc} - ${selectedFlight.arrivalLoc}",
-                  style: defaultStyle,
+                  style: Design.defaultSummaryViewStyle(),
                   textAlign: TextAlign.left)
             ],
           ),
