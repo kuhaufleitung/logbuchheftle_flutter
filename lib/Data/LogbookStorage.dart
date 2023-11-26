@@ -1,14 +1,18 @@
+import 'dart:collection';
 import 'dart:io';
 
-import 'package:logbuchheftle_flutter/Data/FullLogbook.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-class LogbookStorage {
+import 'SingleFlight.dart';
+
+class LogbookStorage extends ChangeNotifier {
   final String _fileName = "logbook.json";
-  final FullLogbook _logbook = FullLogbook();
+  String _logbookJson = "";
+  LinkedHashMap _listOfFlights = LinkedHashMap<int, SingleFlight>();
 
   String get getLogbook {
-    return _logbook.logbookJson;
+    return _logbookJson;
   }
 
   Future<String> get _localPath async {
@@ -26,7 +30,7 @@ class LogbookStorage {
     if (!storageFile.existsSync()) {
       storageFile.createSync();
     }
-    _logbook.logbookJson = await storageFile.readAsString();
+    _logbookJson = await storageFile.readAsString();
   }
 
   Future<void> writeToStorage(String logbookContent) async {
@@ -35,6 +39,15 @@ class LogbookStorage {
   }
 
   bool isEmpty() {
-    return _logbook.logbookJson.isEmpty;
+    return _logbookJson.isEmpty;
+  }
+
+  LinkedHashMap<dynamic, dynamic> getFlightMap() {
+    return _listOfFlights;
+  }
+
+  void updateFlightList(LinkedHashMap<int, SingleFlight> map) {
+    _listOfFlights = map;
+    notifyListeners();
   }
 }

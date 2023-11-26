@@ -1,52 +1,27 @@
-
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/Logic/FlightBuilder.dart';
+import 'package:logbuchheftle_flutter/Data/LogbookStorage.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/Inserts.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/SingleFlightContainerView.dart';
+import 'package:provider/provider.dart';
 
 import '../../Data/SingleFlight.dart';
-import '../StatusViews/LoadingView.dart';
 
-class LogList extends StatefulWidget {
-
-  const LogList({super.key});
-
-  @override
-  LogListState createState() => LogListState();
-}
-
-class LogListState extends State<LogList> {
-  LogListState();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class LogList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: Future.value(FlightBuilder.listOfFlights),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Scaffold(
-                backgroundColor: Colors.black,
-                body: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.all(10),
-                    children: [...list()]));
-          } else {
-            return const LoadingView();
-          }
-        });
+    var logbookStorage = Provider.of<LogbookStorage>(context);
+    return ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(10),
+        children: [...list(logbookStorage)]);
   }
 
-  List<Widget> list() {
+  List<Widget> list(LogbookStorage logbookStorage) {
     //need to keep track of previous flights to insert captions
     SingleFlight? oldFlight;
     List<Widget> flightsInList = [];
     Inserts inserter = Inserts();
-    FlightBuilder.listOfFlights.forEach((currentflid, currentFlight) {
+    logbookStorage.getFlightMap().forEach((currentflid, currentFlight) {
       //we want some "caption" text when a new year, new month happens.
       //also separating flights from different days with padding
       //TODO: check if date/month to next flight is different
@@ -54,8 +29,8 @@ class LogListState extends State<LogList> {
       if (inserts.isNotEmpty) {
         flightsInList.addAll(inserter.generate(oldFlight, currentFlight));
       }
-      flightsInList.add(
-          SingleFlightContainerView(FlightBuilder.listOfFlights[currentflid]));
+      flightsInList.add(SingleFlightContainerView(
+          logbookStorage.getFlightMap()[currentflid], logbookStorage));
       oldFlight = currentFlight;
     });
     //empty container at the end, so bottom bar doesn't cover last element

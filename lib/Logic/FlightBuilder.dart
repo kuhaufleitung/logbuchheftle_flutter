@@ -2,31 +2,32 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:logbuchheftle_flutter/Logic/LogbookStorage.dart';
+import 'package:logbuchheftle_flutter/Data/LogbookStorage.dart';
 
 import '../Data/SingleFlight.dart';
 
-class FlightBuilder {
-  static LinkedHashMap listOfFlights = LinkedHashMap<int, SingleFlight>();
+class FlightBuilder extends ChangeNotifier {
   static final LogbookStorage _logbookStorage = LogbookStorage();
 
-  static Future<void> populateFlightsList() async {
+  void populateFlightsList() {
     //this is not dependent if it's the local or online version as the online version instantly overwrites the local one
     _logbookStorage.readFromStorage();
     if (!_logbookStorage.isEmpty()) {
       List<dynamic> jsonFileContent = _parseJson();
-      if (listOfFlights.isNotEmpty) {
-        listOfFlights.clear();
+      if (_logbookStorage.getFlightMap().isNotEmpty) {
+        _logbookStorage.getFlightMap().clear();
       }
       _createSingleFlights(jsonFileContent);
+      notifyListeners();
     }
   }
 
-  static List<dynamic> _parseJson() {
+  List<dynamic> _parseJson() {
     return jsonDecode(_logbookStorage.getLogbook);
   }
 
-  static void _createSingleFlights(jsonContent) {
+  void _createSingleFlights(jsonContent) {
+    LinkedHashMap<int, SingleFlight> resultMap = LinkedHashMap();
     jsonContent.forEach((value) {
       if (value["duplicate"] == 0 && value["deleted"] == "0") {
         String pilotName = value["pilotname"];
@@ -74,8 +75,10 @@ class FlightBuilder {
             arrivalLoc,
             arrivalTime,
             flightDuration);
-        listOfFlights[flid] = singleFlight;
+        resultMap[flid] = singleFlight;
       }
     });
+    //this updates the menu screen
+    _logbookStorage.updateFlightList(resultMap);
   }
 }

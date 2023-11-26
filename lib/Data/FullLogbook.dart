@@ -1,3 +1,0 @@
-class FullLogbook {
-  String logbookJson = "";
-}

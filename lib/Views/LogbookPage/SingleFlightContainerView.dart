@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logbuchheftle_flutter/Data/LogbookStorage.dart';
 import 'package:logbuchheftle_flutter/Data/SingleFlight.dart';
 import 'package:logbuchheftle_flutter/Views/Design.dart';
 import 'package:logbuchheftle_flutter/Views/LogbookPage/FlightDetailsTextView.dart';
@@ -6,8 +7,10 @@ import 'package:logbuchheftle_flutter/Views/LogbookPage/FlightSummaryTextView.da
 
 class SingleFlightContainerView extends StatefulWidget {
   final SingleFlight _flight;
+  final LogbookStorage _logbookStorage;
 
-  const SingleFlightContainerView(this._flight, {super.key});
+  const SingleFlightContainerView(this._flight, this._logbookStorage,
+      {super.key});
 
   @override
   SingleFlightContainerViewState createState() =>
@@ -34,7 +37,8 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
   @override
   void initState() {
     super.initState();
-    _detailsTextView = FlightDetailsTextView(selectedFlight: widget._flight);
+    _detailsTextView = FlightDetailsTextView(
+        selectedFlight: widget._flight, widget._logbookStorage);
     _summaryTextView = FlightSummaryTextView(selectedFlight: widget._flight);
     _currentTextWidgetInfo = _summaryTextView;
     _animationController = AnimationController(
@@ -42,7 +46,8 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          _targetHeight = (MediaQuery.of(context).size.height - 620) * MediaQuery.of(context).textScaleFactor;
+          _targetHeight = (MediaQuery.of(context).size.height - 620) *
+              MediaQuery.of(context).textScaleFactor;
           _targetWidth = MediaQuery.of(context).size.width;
           _currentTextWidgetInfo = _detailsTextView;
         });
@@ -61,14 +66,16 @@ class SingleFlightContainerViewState extends State<SingleFlightContainerView>
     if (_animationController.status == AnimationStatus.dismissed) {
       _animation = Tween<double>(
               begin: _targetHeight,
-              end: (MediaQuery.of(context).size.height - 620) * MediaQuery.of(context).textScaleFactor)
+              end: (MediaQuery.of(context).size.height - 620) *
+                  MediaQuery.of(context).textScaleFactor)
           .animate(CurvedAnimation(
               parent: _animationController,
               curve: Curves.easeInSine,
               reverseCurve: Curves.easeInSine));
     } else if (_animationController.status == AnimationStatus.reverse) {
       _animation = Tween<double>(
-              begin: (MediaQuery.of(context).size.height - 620) * MediaQuery.of(context).textScaleFactor,
+              begin: (MediaQuery.of(context).size.height - 620) *
+                  MediaQuery.of(context).textScaleFactor,
               end: _targetHeight)
           .animate(CurvedAnimation(
               parent: _animationController,

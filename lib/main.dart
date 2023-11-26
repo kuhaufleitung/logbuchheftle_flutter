@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:logbuchheftle_flutter/Data/LogbookStorage.dart';
+import 'package:provider/provider.dart';
 import 'Views/MenuNavigator.dart';
 
 void main() async {
@@ -12,12 +14,13 @@ class LogApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lochbuchheftle',
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-      ),
-      home: const MyHomePage(title: 'Logbook'),
-    );
+        title: 'Lochbuchheftle',
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+        ),
+        home: ChangeNotifierProvider(
+            create: (context) => LogbookStorage(),
+            child: const MyHomePage(title: 'Logbook')));
   }
 }
 

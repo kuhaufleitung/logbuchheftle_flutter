@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class FileCredentials {
   String _jwtBearerToken = "";
 
